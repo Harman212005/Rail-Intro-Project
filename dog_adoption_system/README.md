@@ -33,4 +33,4 @@ This application will allow users to:
 - View detailed information about each dog including photos
 - Search dogs by breed, age, or availability
 - View adoption history and owner information
-- Navigate through paginated lists of dogs and owners
+- Navigate through paginated lists of dogs and owners.
