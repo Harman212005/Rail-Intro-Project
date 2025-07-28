@@ -1,4 +1,4 @@
-class Adoption < ApplicationRecord
-  belongs_to :dog
-  belongs_to :owner
+class Owner < ApplicationRecord
+  has_many :adoptions, dependent: :destroy
+  has_many :dogs, through: :adoptions
 end
