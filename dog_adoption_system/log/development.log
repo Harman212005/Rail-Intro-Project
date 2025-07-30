@@ -1,0 +1,799 @@
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "adoptions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "dog_id" integer NOT NULL, "owner_id" integer NOT NULL, "adoption_date" date, "adoption_fee" decimal, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_adoptions_on_dog_id" ON "adoptions" ("dog_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_adoptions_on_owner_id" ON "adoptions" ("owner_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "dogs" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "dogs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "breed" varchar, "name" varchar, "age" integer, "image_url" varchar, "description" text, "available_for_adoption" boolean, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "owners" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "owners" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "phone" varchar, "address" varchar, "city" varchar, "state" varchar, "zip_code" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (3.8ms)[0m  [1m[35mPRAGMA foreign_keys /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aadoptions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "dog_id" integer NOT NULL, "owner_id" integer NOT NULL, "adoption_date" date, "adoption_fee" decimal, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aadoptions_on_owner_id" ON "aadoptions" ("owner_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aadoptions_on_dog_id" ON "aadoptions" ("dog_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "aadoptions" ("id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at")
+                     SELECT "id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at" FROM "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "adoptions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "dog_id" integer NOT NULL, "owner_id" integer NOT NULL, "adoption_date" date, "adoption_fee" decimal, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_8ed71bdd34"
+FOREIGN KEY ("dog_id")
+  REFERENCES "dogs" ("id")
+) /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_adoptions_on_dog_id" ON "adoptions" ("dog_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_adoptions_on_owner_id" ON "adoptions" ("owner_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "adoptions" ("id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at")
+                     SELECT "id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at" FROM "aadoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "aadoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (4.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aadoptions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "dog_id" integer NOT NULL, "owner_id" integer NOT NULL, "adoption_date" date, "adoption_fee" decimal, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aadoptions_on_owner_id" ON "aadoptions" ("owner_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aadoptions_on_dog_id" ON "aadoptions" ("dog_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "aadoptions" ("id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at")
+                     SELECT "id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at" FROM "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "adoptions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "dog_id" integer NOT NULL, "owner_id" integer NOT NULL, "adoption_date" date, "adoption_fee" decimal, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_8ed71bdd34"
+FOREIGN KEY ("dog_id")
+  REFERENCES "dogs" ("id")
+, CONSTRAINT "fk_rails_f02475b891"
+FOREIGN KEY ("owner_id")
+  REFERENCES "owners" ("id")
+) /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_adoptions_on_dog_id" ON "adoptions" ("dog_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_adoptions_on_owner_id" ON "adoptions" ("owner_id") /*application='DogAdoptionSystem'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "adoptions" ("id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at")
+                     SELECT "id","dog_id","owner_id","adoption_date","adoption_fee","notes","created_at","updated_at" FROM "aadoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aadoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250728045640) /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250728045619),
+(20250728044911); /*application='DogAdoptionSystem'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-07-30 07:18:39.441593', '2025-07-30 07:18:39.441602') RETURNING "key" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'c6d9f3188e8128b38023ddd68dab15dfc4a83b77', '2025-07-30 07:18:39.455248', '2025-07-30 07:18:39.455255') RETURNING "key" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (0.3ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Load (0.3ms)[0m  [1m[34mSELECT "owners".* FROM "owners" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (6.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Stbernard', 'Dakota', 9, 'https://images.dog.ceo/breeds/stbernard/n02109525_3388.jpg', 'Enim nihil et minima sed temporibus laborum officiis. This stbernard is puppy and loves video gaming.', 0, '2025-07-30 07:20:22.306918', '2025-07-30 07:20:22.306918') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (19.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.3ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Lhasa', 'Riley', 7, 'https://images.dog.ceo/breeds/lhasa/n02098413_21411.jpg', 'Et accusantium tenetur non ad qui culpa iste. This lhasa is adult and loves paintball.', 0, '2025-07-30 07:20:22.990092', '2025-07-30 07:20:22.990092') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (8.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Waterdog', 'Sammy', 5, 'https://images.dog.ceo/breeds/waterdog-spanish/20190208_063211.jpg', 'Qui numquam quae et aspernatur saepe rerum ipsa. This waterdog is senior and loves computer programming.', 0, '2025-07-30 07:20:23.908861', '2025-07-30 07:20:23.908861') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.1ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Corgi', 'Rocky', 12, 'https://images.dog.ceo/breeds/corgi/10428156_10153759459273449_8238926577769461537_o_(1).jpg', 'Saepe voluptatem aut voluptatem ut quia molestiae quibusdam. This corgi is adult and loves vacation.', 1, '2025-07-30 07:20:24.824130', '2025-07-30 07:20:24.824130') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Husky', 'Sparky', 4, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Occaecati dolorem labore qui qui cumque laboriosam iusto. This husky is adult and loves coloring.', 1, '2025-07-30 07:20:45.878805', '2025-07-30 07:20:45.878805') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Labradoodle', 'Jack', 5, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Reprehenderit nihil fugiat laborum aut non culpa maxime. This labradoodle is puppy and loves fashion.', 0, '2025-07-30 07:21:06.924752', '2025-07-30 07:21:06.924752') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.1ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Pitbull', 'Annie', 9, 'https://images.dog.ceo/breeds/pitbull/dog-3981033_1280.jpg', 'Minima quia quia et necessitatibus minus odio sit. This pitbull is adult and loves motor sports.', 1, '2025-07-30 07:21:22.685824', '2025-07-30 07:21:22.685824') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.1ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Elkhound', 'Lily', 5, 'https://images.dog.ceo/breeds/elkhound-norwegian/n02091467_4426.jpg', 'Sit hic illo nam odio deserunt harum sit. This elkhound is puppy and loves scrapbooking.', 1, '2025-07-30 07:21:23.711215', '2025-07-30 07:21:23.711215') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Basenji', 'Cooper', 5, 'https://images.dog.ceo/breeds/basenji/n02110806_3138.jpg', 'Aliquid et error mollitia veniam repellendus corrupti molestiae. This basenji is senior and loves flying.', 0, '2025-07-30 07:21:39.376903', '2025-07-30 07:21:39.376903') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Hound', 'Sadie', 4, 'https://images.dog.ceo/breeds/hound-blood/n02088466_8015.jpg', 'Aut ipsum quia magni et iste quia est. This hound is senior and loves whittling.', 0, '2025-07-30 07:21:40.002124', '2025-07-30 07:21:40.002124') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Boxer', 'Abby', 8, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Ratione sed soluta neque quia omnis dolore dicta. This boxer is adult and loves stone skipping.', 0, '2025-07-30 07:22:01.058688', '2025-07-30 07:22:01.058688') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Pariah', 'Ruby', 10, 'https://images.dog.ceo/breeds/pariah-indian/The_Indian_Pariah_Dog.jpg', 'In earum aliquid qui nisi est enim provident. This pariah is puppy and loves crocheting.', 1, '2025-07-30 07:22:17.073126', '2025-07-30 07:22:17.073126') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (22.1ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Dhole', 'Cookie', 10, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Omnis dolores blanditiis enim fugiat odit id aut. This dhole is puppy and loves hunting.', 1, '2025-07-30 07:22:38.126439', '2025-07-30 07:22:38.126439') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Stbernard', 'Chico', 11, 'https://images.dog.ceo/breeds/stbernard/n02109525_10032.jpg', 'Non rem esse voluptas occaecati doloribus repellat cum. This stbernard is puppy and loves mountaineering.', 1, '2025-07-30 07:22:38.769236', '2025-07-30 07:22:38.769236') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Cavapoo', 'Ginger', 8, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Debitis non et ut suscipit deserunt ut in. This cavapoo is senior and loves driving.', 1, '2025-07-30 07:22:59.818056', '2025-07-30 07:22:59.818056') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Germanshepherd', 'Patches', 3, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Iure molestiae dolores quia ea libero eligendi et. This germanshepherd is senior and loves coloring.', 1, '2025-07-30 07:23:20.871071', '2025-07-30 07:23:20.871071') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (6.5ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Dingo', 'Baxter', 7, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Perferendis officia libero ea quo molestiae consequatur aspernatur. This dingo is adult and loves base jumping.', 1, '2025-07-30 07:23:41.931125', '2025-07-30 07:23:41.931125') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (0.4ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Load (0.7ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (0.2ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.3ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (17.5ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (7.1ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 2 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 2 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.9ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 3 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.3ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 3 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (7.4ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 4 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 4 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (6.5ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 5 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 5 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.1ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 6 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 6 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.3ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 7 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 7 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 8 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 8 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (6.6ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 9 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 9 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 10 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 10 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.0ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 11 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 11 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.6ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 12 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 12 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 13 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 13 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (23.5ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 14 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 14 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.2ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 15 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 15 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.5ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 16 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 16 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 17 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 17 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Load (0.4ms)[0m  [1m[34mSELECT "owners".* FROM "owners" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Rottweiler', 'Dakota', 12, 'https://images.dog.ceo/breeds/rottweiler/n02106550_11433.jpg', 'Culpa omnis ad id et exercitationem libero qui. This rottweiler is young and loves lapidary.', 1, '2025-07-30 07:25:47.141880', '2025-07-30 07:25:47.141880') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Cotondetulear', 'Chloe', 5, 'https://images.dog.ceo/breeds/cotondetulear/100_2013.jpg', 'Adipisci saepe quo voluptas ea autem ut quidem. This cotondetulear is puppy and loves blacksmithing.', 1, '2025-07-30 07:25:47.791565', '2025-07-30 07:25:47.791565') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Wolfhound', 'Lucy', 9, 'https://images.dog.ceo/breeds/wolfhound-irish/n02090721_2800.jpg', 'Sunt nemo saepe voluptatibus quis sit rerum dignissimos. This wolfhound is senior and loves blacksmithing.', 0, '2025-07-30 07:25:48.721527', '2025-07-30 07:25:48.721527') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Collie', 'Bruno', 1, 'https://images.dog.ceo/breeds/collie/n02106030_16173.jpg', 'Doloremque quam facilis occaecati praesentium incidunt nemo blanditiis. This collie is senior and loves book restoration.', 1, '2025-07-30 07:26:04.792797', '2025-07-30 07:26:04.792797') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Kelpie', 'Lucky', 3, 'https://images.dog.ceo/breeds/kelpie/n02105412_7843.jpg', 'Quibusdam quae velit et optio libero perferendis quam. This kelpie is senior and loves ice skating.', 0, '2025-07-30 07:26:20.429884', '2025-07-30 07:26:20.429884') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Bulldog', 'Chloe', 3, 'https://images.dog.ceo/breeds/bulldog-boston/n02096585_4103.jpg', 'Explicabo odio omnis maiores veniam qui placeat laudantium. This bulldog is senior and loves video gaming.', 1, '2025-07-30 07:26:36.043588', '2025-07-30 07:26:36.043588') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (20.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Coonhound', 'Ruby', 6, 'https://images.dog.ceo/breeds/coonhound/n02089078_2921.jpg', 'Distinctio blanditiis tempora ut officia nihil enim et. This coonhound is puppy and loves jewelry making.', 0, '2025-07-30 07:26:51.705668', '2025-07-30 07:26:51.705668') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Kuvasz', 'Toby', 9, 'https://images.dog.ceo/breeds/kuvasz/n02104029_2500.jpg', 'Molestiae ut debitis non officia totam explicabo facilis. This kuvasz is adult and loves lego building.', 1, '2025-07-30 07:27:07.372369', '2025-07-30 07:27:07.372369') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.3ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Pomeranian', 'Sammy', 11, 'https://images.dog.ceo/breeds/pomeranian/n02112018_14257.jpg', 'Aut labore ut qui eum in rem et. This pomeranian is young and loves knife making.', 0, '2025-07-30 07:27:23.046467', '2025-07-30 07:27:23.046467') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Labrador', 'Roxy', 11, 'https://images.dog.ceo/breeds/labrador/n02099712_1254.jpg', 'Quia rerum praesentium eaque sapiente necessitatibus voluptates et. This labrador is adult and loves yoga.', 1, '2025-07-30 07:27:23.588682', '2025-07-30 07:27:23.588682') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.1ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Finnish', 'Chico', 5, 'https://images.dog.ceo/breeds/finnish-lapphund/mochilamvan.jpg', 'Dolores placeat doloremque et minus aut veniam quisquam. This finnish is young and loves pet.', 1, '2025-07-30 07:27:24.358769', '2025-07-30 07:27:24.358769') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (7.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Puggle', 'Cookie', 11, 'https://images.dog.ceo/breeds/puggle/IMG_114654.jpg', 'Porro possimus aut odit dolorem fuga facere ut. This puggle is senior and loves machining.', 1, '2025-07-30 07:27:24.923814', '2025-07-30 07:27:24.923814') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Lhasa', 'Sparky', 9, 'https://images.dog.ceo/breeds/lhasa/n02098413_18317.jpg', 'Hic voluptatibus cum est voluptas et eaque voluptatem. This lhasa is adult and loves mycology.', 1, '2025-07-30 07:27:25.617101', '2025-07-30 07:27:25.617101') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.3ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Puggle', 'Diamond', 11, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Fugiat nihil beatae doloribus ratione quod alias itaque. This puggle is adult and loves astronomy.', 1, '2025-07-30 07:27:46.672794', '2025-07-30 07:27:46.672794') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.3ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Finnish', 'Sadie', 3, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Totam aliquid minus eveniet nihil ut vero vel. This finnish is puppy and loves urban exploration.', 0, '2025-07-30 07:28:07.730741', '2025-07-30 07:28:07.730741') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Akita', 'Bo', 12, 'https://images.dog.ceo/breeds/akita/Akita_inu_blanc.jpg', 'Aut nam nihil quaerat ratione reprehenderit est magnam. This akita is adult and loves roller skating.', 0, '2025-07-30 07:28:08.402967', '2025-07-30 07:28:08.402967') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Bullterrier', 'Buster', 5, 'https://images.dog.ceo/breeds/bullterrier-staffordshire/n02093256_2353.jpg', 'Aut fugiat voluptatem mollitia aut rerum ut sit. This bullterrier is senior and loves beekeeping.', 0, '2025-07-30 07:28:09.332877', '2025-07-30 07:28:09.332877') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Bakharwal', 'Cocoa', 12, 'https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg', 'Ut officia veritatis voluptas officiis sint non odit. This bakharwal is puppy and loves lockpicking.', 0, '2025-07-30 07:28:30.407340', '2025-07-30 07:28:30.407340') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (0.3ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Load (0.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (0.2ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 18 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.3ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 18 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.8ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 19 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 19 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (3.8ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 20 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 20 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (9.2ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 21 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.3ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 21 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 22 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.3ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 22 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.3ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 23 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 23 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.3ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 24 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 24 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.2ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 25 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 25 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 26 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 26 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.8ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 27 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 27 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 28 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 28 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 29 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 29 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (6.8ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 30 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 30 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (33.8ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 31 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 31 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.4ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 32 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.2ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 32 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (6.8ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 33 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 33 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (4.7ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 34 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 34 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Load (5.4ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 35 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Destroy (0.1ms)[0m  [1m[31mDELETE FROM "dogs" WHERE "dogs"."id" = 35 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Load (0.2ms)[0m  [1m[34mSELECT "owners".* FROM "owners" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.2ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Mastiff', 'Bo', 9, 'https://images.dog.ceo/breeds/mastiff-tibetan/n02108551_598.jpg', 'Omnis animi recusandae quia vero soluta optio ex. This mastiff is adult and loves puzzles.', 0, '2025-07-30 07:32:40.652888', '2025-07-30 07:32:40.652888') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Mastiff', 'Buster', 2, 'https://images.dog.ceo/breeds/mastiff-tibetan/n02108551_572.jpg', 'Et repellat qui eum error aut qui accusantium. This mastiff is senior and loves macrame.', 1, '2025-07-30 07:32:41.543590', '2025-07-30 07:32:41.543590') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Labradoodle', 'Sammy', 9, 'https://images.dog.ceo/breeds/labradoodle/lola.jpg', 'Non qui animi dolore suscipit rerum officia rem. This labradoodle is senior and loves book restoration.', 1, '2025-07-30 07:32:42.470778', '2025-07-30 07:32:42.470778') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Hound', 'Buster', 6, 'https://images.dog.ceo/breeds/hound-blood/n02088466_8515.jpg', 'Dolorum aut beatae ut quidem et nesciunt rerum. This hound is puppy and loves hunting.', 1, '2025-07-30 07:32:43.386832', '2025-07-30 07:32:43.386832') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Australian', 'Diamond', 6, 'https://images.dog.ceo/breeds/australian-shepherd/pepper2.jpg', 'Sit expedita deleniti minima eos dolore architecto est. This australian is senior and loves shopping.', 0, '2025-07-30 07:32:44.311208', '2025-07-30 07:32:44.311208') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Rottweiler', 'Bella', 2, 'https://images.dog.ceo/breeds/rottweiler/n02106550_3610.jpg', 'Reprehenderit explicabo incidunt expedita ut eveniet aut est. This rottweiler is puppy and loves wood carving.', 1, '2025-07-30 07:32:45.235285', '2025-07-30 07:32:45.235285') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (13.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('African', 'Zoe', 6, 'https://images.dog.ceo/breeds/african/n02116738_2329.jpg', 'Est natus maxime ut cum aut tempora at. This african is young and loves running.', 1, '2025-07-30 07:32:46.095257', '2025-07-30 07:32:46.095257') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Terrier', 'Precious', 5, 'https://images.dog.ceo/breeds/terrier-border/n02093754_5190.jpg', 'Eius fuga beatae cumque numquam dolorem in et. This terrier is puppy and loves table tennis.', 0, '2025-07-30 07:32:46.995373', '2025-07-30 07:32:46.995373') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Mudhol', 'Jack', 3, 'https://images.dog.ceo/breeds/mudhol-indian/Indian-Mudhol.jpg', 'Nihil corrupti ad numquam ut minima vero sequi. This mudhol is puppy and loves geocaching.', 1, '2025-07-30 07:32:48.083507', '2025-07-30 07:32:48.083507') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Kuvasz', 'Tyson', 10, 'https://images.dog.ceo/breeds/kuvasz/n02104029_1794.jpg', 'Sapiente ut dolor ipsum odio fuga minus id. This kuvasz is adult and loves magic.', 0, '2025-07-30 07:32:49.028701', '2025-07-30 07:32:49.028701') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Maltese', 'Milo', 4, 'https://images.dog.ceo/breeds/maltese/n02085936_5789.jpg', 'Ex qui sed voluptatum atque et ut beatae. This maltese is senior and loves beekeeping.', 0, '2025-07-30 07:32:49.853776', '2025-07-30 07:32:49.853776') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Pitbull', 'Sasha', 9, 'https://images.dog.ceo/breeds/pitbull/dog-3981033_1280.jpg', 'Ipsa reprehenderit ea rerum quo recusandae alias tempora. This pitbull is senior and loves jigsaw puzzles.', 0, '2025-07-30 07:32:50.761444', '2025-07-30 07:32:50.761444') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Akita', 'Princess', 6, 'https://images.dog.ceo/breeds/akita/An_Akita_Inu_resting.jpg', 'Dolor magni eveniet molestiae omnis aut aut error. This akita is young and loves sand art.', 0, '2025-07-30 07:32:52.446301', '2025-07-30 07:32:52.446301') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Bakharwal', 'Bruno', 2, 'https://images.dog.ceo/breeds/bakharwal-indian/Bakharwal.jpg', 'Molestiae est quo necessitatibus mollitia accusamus assumenda est. This bakharwal is senior and loves jogging.', 1, '2025-07-30 07:32:53.334074', '2025-07-30 07:32:53.334074') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Chihuahua', 'Maggie', 11, 'https://images.dog.ceo/breeds/chihuahua/n02085620_11258.jpg', 'Voluptas cumque magnam officiis possimus illum atque eum. This chihuahua is puppy and loves writing.', 1, '2025-07-30 07:32:54.144339', '2025-07-30 07:32:54.144339') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Dachshund', 'Shadow', 4, 'https://images.dog.ceo/breeds/dachshund/dachshund_4.jpg', 'Ducimus quibusdam sit voluptatem error autem similique quia. This dachshund is senior and loves sewing.', 1, '2025-07-30 07:32:55.075297', '2025-07-30 07:32:55.075297') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Springer', 'Belle', 4, 'https://images.dog.ceo/breeds/springer-english/n02102040_7659.jpg', 'Mollitia sequi repellendus exercitationem perferendis eum cum inventore. This springer is adult and loves roller skating.', 1, '2025-07-30 07:32:56.080370', '2025-07-30 07:32:56.080370') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Otterhound', 'Snoopy', 4, 'https://images.dog.ceo/breeds/otterhound/n02091635_1706.jpg', 'Autem sapiente perferendis excepturi illo explicabo neque aliquid. This otterhound is young and loves handball.', 1, '2025-07-30 07:32:57.114623', '2025-07-30 07:32:57.114623') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Hound', 'Lilly', 11, 'https://images.dog.ceo/breeds/hound-english/n02089973_3433.jpg', 'Rem laborum voluptates illum itaque rerum et officia. This hound is senior and loves stone skipping.', 1, '2025-07-30 07:32:58.442010', '2025-07-30 07:32:58.442010') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Bullterrier', 'Abby', 9, 'https://images.dog.ceo/breeds/bullterrier-staffordshire/n02093256_5734.jpg', 'Inventore non dolor voluptatem et eos rem quia. This bullterrier is adult and loves creative writing.', 1, '2025-07-30 07:32:59.363909', '2025-07-30 07:32:59.363909') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.3ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Chihuahua', 'Buddy', 4, 'https://images.dog.ceo/breeds/chihuahua/n02085620_13383.jpg', 'Et laborum rerum vitae magnam veritatis rerum id. This chihuahua is senior and loves brazilian jiu-jitsu.', 1, '2025-07-30 07:33:00.281984', '2025-07-30 07:33:00.281984') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Weimaraner', 'Abby', 3, 'https://images.dog.ceo/breeds/weimaraner/n02092339_7491.jpg', 'Odit consequatur qui libero esse officia debitis eveniet. This weimaraner is adult and loves rugby.', 0, '2025-07-30 07:33:01.098307', '2025-07-30 07:33:01.098307') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Sheepdog', 'Oreo', 6, 'https://images.dog.ceo/breeds/sheepdog-english/n02105641_4577.jpg', 'Tenetur nam autem corrupti error sint iusto reprehenderit. This sheepdog is adult and loves origami.', 1, '2025-07-30 07:33:02.341288', '2025-07-30 07:33:02.341288') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Terrier', 'Annie', 8, 'https://images.dog.ceo/breeds/terrier-border/n02093754_6453.jpg', 'Nihil blanditiis perferendis ea perspiciatis eligendi non repellendus. This terrier is young and loves coffee roasting.', 1, '2025-07-30 07:33:03.260781', '2025-07-30 07:33:03.260781') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Australian', 'Tucker', 6, 'https://images.dog.ceo/breeds/australian-shepherd/pepper.jpg', 'Et a optio enim error nisi amet non. This australian is senior and loves quilting.', 1, '2025-07-30 07:33:04.065004', '2025-07-30 07:33:04.065004') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Hound', 'Taz', 11, 'https://images.dog.ceo/breeds/hound-blood/n02088466_8801.jpg', 'Impedit ab quae molestias officiis voluptas iusto rerum. This hound is puppy and loves woodworking.', 1, '2025-07-30 07:33:04.907760', '2025-07-30 07:33:04.907760') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Mountain', 'Charlie', 6, 'https://images.dog.ceo/breeds/mountain-bernese/n02107683_4782.jpg', 'Sit et libero quo recusandae laboriosam ex fuga. This mountain is puppy and loves surfing.', 1, '2025-07-30 07:33:05.805280', '2025-07-30 07:33:05.805280') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.1ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Collie', 'Princess', 12, 'https://images.dog.ceo/breeds/collie/n02106030_16290.jpg', 'Sed beatae laborum tempora eaque ipsum velit sit. This collie is adult and loves netball.', 1, '2025-07-30 07:33:06.739107', '2025-07-30 07:33:06.739107') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Elkhound', 'Sam', 3, 'https://images.dog.ceo/breeds/elkhound-norwegian/n02091467_3880.jpg', 'Perferendis minus veritatis molestiae saepe sit non rerum. This elkhound is young and loves blacksmithing.', 0, '2025-07-30 07:33:07.662893', '2025-07-30 07:33:07.662893') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Gaddi', 'Tyson', 9, 'https://images.dog.ceo/breeds/gaddi-indian/Gaddi.jpg', 'Cupiditate cumque minima quia vero consequatur ut animi. This gaddi is young and loves gardening.', 1, '2025-07-30 07:33:08.793360', '2025-07-30 07:33:08.793360') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Malamute', 'Toby', 12, 'https://images.dog.ceo/breeds/malamute/n02110063_49.jpg', 'Et beatae dolor odio fugit autem minima dignissimos. This malamute is senior and loves crocheting.', 1, '2025-07-30 07:33:09.713303', '2025-07-30 07:33:09.713303') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Doberman', 'Lola', 7, 'https://images.dog.ceo/breeds/doberman/n02107142_4013.jpg', 'Iure porro voluptatem id architecto tenetur eveniet nostrum. This doberman is adult and loves skateboarding.', 1, '2025-07-30 07:33:10.646923', '2025-07-30 07:33:10.646923') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.2ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Buhund', 'Cocoa', 9, 'https://images.dog.ceo/breeds/buhund-norwegian/hakon2.jpg', 'Explicabo quis nihil nihil maxime placeat est quis. This buhund is puppy and loves kabaddi.', 0, '2025-07-30 07:33:11.758702', '2025-07-30 07:33:11.758702') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.5ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Greyhound', 'Jake', 9, 'https://images.dog.ceo/breeds/greyhound-italian/n02091032_1228.jpg', 'Aliquid unde deserunt porro nemo voluptas ut cumque. This greyhound is adult and loves dance.', 1, '2025-07-30 07:33:12.891193', '2025-07-30 07:33:12.891193') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Papillon', 'Spike', 5, 'https://images.dog.ceo/breeds/papillon/n02086910_9883.jpg', 'Est rerum sit qui rerum quia repellat qui. This papillon is senior and loves vehicle restoration.', 1, '2025-07-30 07:33:13.804732', '2025-07-30 07:33:13.804732') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Springer', 'Snickers', 1, 'https://images.dog.ceo/breeds/springer-english/n02102040_2099.jpg', 'Libero ipsa ex aliquid aut ea distinctio atque. This springer is puppy and loves base jumping.', 1, '2025-07-30 07:33:14.727709', '2025-07-30 07:33:14.727709') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.2ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Gaddi', 'Bandit', 4, 'https://images.dog.ceo/breeds/gaddi-indian/Gaddi.jpg', 'Et tenetur quisquam velit eum voluptatem perferendis dicta. This gaddi is adult and loves cooking.', 0, '2025-07-30 07:33:15.546708', '2025-07-30 07:33:15.546708') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.5ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Rottweiler', 'Lola', 2, 'https://images.dog.ceo/breeds/rottweiler/n02106550_4072.jpg', 'Ipsa suscipit sunt qui ut nobis velit fugiat. This rottweiler is senior and loves skateboarding.', 0, '2025-07-30 07:33:16.453648', '2025-07-30 07:33:16.453648') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Springer', 'Gizmo', 2, 'https://images.dog.ceo/breeds/springer-english/n02102040_6763.jpg', 'Eligendi cum non nihil est unde autem iusto. This springer is puppy and loves jigsaw puzzles.', 1, '2025-07-30 07:33:17.398198', '2025-07-30 07:33:17.398198') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Redbone', 'Tank', 11, 'https://images.dog.ceo/breeds/redbone/n02090379_4718.jpg', 'Repellat dolores nihil consequuntur et magnam est qui. This redbone is puppy and loves blacksmithing.', 1, '2025-07-30 07:33:18.310643', '2025-07-30 07:33:18.310643') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Mountain', 'Jasper', 2, 'https://images.dog.ceo/breeds/mountain-bernese/n02107683_4788.jpg', 'Sed minima eligendi hic odio error excepturi sed. This mountain is puppy and loves baton twirling.', 0, '2025-07-30 07:33:19.128889', '2025-07-30 07:33:19.128889') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Keeshond', 'Riley', 6, 'https://images.dog.ceo/breeds/keeshond/n02112350_177.jpg', 'Ducimus et recusandae amet est qui pariatur iusto. This keeshond is adult and loves worldbuilding.', 1, '2025-07-30 07:33:20.046659', '2025-07-30 07:33:20.046659') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (6.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Whippet', 'Roxie', 8, 'https://images.dog.ceo/breeds/whippet/n02091134_14209.jpg', 'Sed quasi earum nihil eius quis quia ullam. This whippet is puppy and loves rafting.', 1, '2025-07-30 07:33:20.973866', '2025-07-30 07:33:20.973866') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Labradoodle', 'Lucky', 4, 'https://images.dog.ceo/breeds/labradoodle/Cali.jpg', 'Quaerat et ratione non et iste iusto ipsam. This labradoodle is young and loves geocaching.', 1, '2025-07-30 07:33:21.780534', '2025-07-30 07:33:21.780534') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Elkhound', 'Charlie', 9, 'https://images.dog.ceo/breeds/elkhound-norwegian/n02091467_4110.jpg', 'Quod ut amet error omnis et ullam rerum. This elkhound is young and loves playing musical instruments.', 1, '2025-07-30 07:33:22.697202', '2025-07-30 07:33:22.697202') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Whippet', 'Gracie', 12, 'https://images.dog.ceo/breeds/whippet/n02091134_7748.jpg', 'Voluptate repudiandae nam cumque et distinctio voluptatem nisi. This whippet is puppy and loves rowing.', 0, '2025-07-30 07:33:23.638252', '2025-07-30 07:33:23.638252') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Puggle', 'Lady', 6, 'https://images.dog.ceo/breeds/puggle/IMG_081858.jpg', 'Accusantium mollitia similique nesciunt et et delectus sed. This puggle is senior and loves base jumping.', 0, '2025-07-30 07:33:24.380206', '2025-07-30 07:33:24.380206') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.9ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Australian', 'Chloe', 11, 'https://images.dog.ceo/breeds/australian-kelpie/IMG_2599.jpg', 'Perspiciatis aliquid vel et sed unde totam laboriosam. This australian is adult and loves reading.', 1, '2025-07-30 07:33:25.274664', '2025-07-30 07:33:25.274664') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.0ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Bulldog', 'Max', 6, 'https://images.dog.ceo/breeds/bulldog-boston/n02096585_11180.jpg', 'Alias quibusdam sunt laudantium et accusantium optio sapiente. This bulldog is young and loves shopping.', 1, '2025-07-30 07:33:26.187733', '2025-07-30 07:33:26.187733') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.3ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Komondor', 'Molly', 6, 'https://images.dog.ceo/breeds/komondor/n02105505_43.jpg', 'Dolor amet vel et ea quia eum blanditiis. This komondor is adult and loves base jumping.', 1, '2025-07-30 07:33:26.931393', '2025-07-30 07:33:26.931393') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Vizsla', 'Jasmine', 12, 'https://images.dog.ceo/breeds/vizsla/n02100583_3263.jpg', 'Architecto fugit dolor nihil sit recusandae ipsam ducimus. This vizsla is puppy and loves juggling.', 0, '2025-07-30 07:33:27.824705', '2025-07-30 07:33:27.824705') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Beagle', 'Casey', 10, 'https://images.dog.ceo/breeds/beagle/n02088364_5090.jpg', 'Qui non excepturi placeat et odio exercitationem enim. This beagle is adult and loves metalworking.', 0, '2025-07-30 07:33:28.663104', '2025-07-30 07:33:28.663104') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.8ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Springer', 'Lucky', 7, 'https://images.dog.ceo/breeds/springer-english/n02102040_3228.jpg', 'Enim omnis consequatur accusantium saepe id deserunt fuga. This springer is adult and loves snowboarding.', 1, '2025-07-30 07:33:29.480843', '2025-07-30 07:33:29.480843') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Puggle', 'Chance', 7, 'https://images.dog.ceo/breeds/puggle/IMG_095312.jpg', 'Reiciendis nihil voluptatum expedita et sunt nobis error. This puggle is adult and loves pet.', 0, '2025-07-30 07:33:30.170992', '2025-07-30 07:33:30.170992') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (3.7ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Groenendael', 'Milo', 11, 'https://images.dog.ceo/breeds/groenendael/n02105056_2556.jpg', 'Animi fuga optio repellat quis repellendus enim dolorum. This groenendael is senior and loves bird watching.', 1, '2025-07-30 07:33:30.994113', '2025-07-30 07:33:30.994113') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.3ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Havanese', 'Marley', 12, 'https://images.dog.ceo/breeds/havanese/00100trPORTRAIT_00100_BURST20191222103956878_COVER.jpg', 'Sequi repudiandae blanditiis facilis veniam aperiam ad ut. This havanese is young and loves lacemaking.', 1, '2025-07-30 07:33:32.158275', '2025-07-30 07:33:32.158275') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (4.1ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Shiba', 'Belle', 11, 'https://images.dog.ceo/breeds/shiba/shiba-2.jpg', 'Quia repellat officia nihil sapiente nulla numquam blanditiis. This shiba is young and loves mountain biking.', 1, '2025-07-30 07:33:33.034268', '2025-07-30 07:33:33.034268') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (5.6ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Newfoundland', 'Mia', 4, 'https://images.dog.ceo/breeds/newfoundland/n02111277_160.jpg', 'Quam sunt consequuntur quis molestiae saepe vitae voluptate. This newfoundland is puppy and loves metalworking.', 0, '2025-07-30 07:33:34.062228', '2025-07-30 07:33:34.062228') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (2.4ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Dalmatian', 'Baby', 2, 'https://images.dog.ceo/breeds/dalmatian/cooper1.jpg', 'Sed impedit incidunt deserunt vel sunt accusantium dolorem. This dalmatian is adult and loves snowboarding.', 0, '2025-07-30 07:33:35.004173', '2025-07-30 07:33:35.004173') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Create (6.5ms)[0m  [1m[32mINSERT INTO "dogs" ("breed", "name", "age", "image_url", "description", "available_for_adoption", "created_at", "updated_at") VALUES ('Sharpei', 'Jasper', 12, 'https://images.dog.ceo/breeds/sharpei/noel.jpg', 'Dolorum vel odio aliquid et sit sint qui. This sharpei is young and loves skimboarding.', 0, '2025-07-30 07:33:36.027766', '2025-07-30 07:33:36.027766') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (6.0ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'dustin@reynolds.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.5ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Freddie Williamson PhD', 'dustin@reynolds.test', '(902) 811-4072', '71183 Shields Square', 'New Marlon', 'Colorado', '08865-7310', '2025-07-30 07:33:36.073604', '2025-07-30 07:33:36.073604') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.3ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'eloy.sporer@stiedemann.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Jarrod Wiegand', 'eloy.sporer@stiedemann.example', '(887) 922-8392', '556 Parker Points', 'Homerview', 'Connecticut', '02798-3572', '2025-07-30 07:33:36.097871', '2025-07-30 07:33:36.097871') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (7.4ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'lore@moen-kuhn.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Darci Schoen DC', 'lore@moen-kuhn.test', '(254) 342-7154', '7598 Jeremy Hollow', 'Cronachester', 'Ohio', '14708-7980', '2025-07-30 07:33:36.126266', '2025-07-30 07:33:36.126266') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'elliott_dach@welch-daniel.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Argentina Bayer', 'elliott_dach@welch-daniel.example', '(849) 971-6112', '25250 Carmine Divide', 'Port Josh', 'Kansas', '58341-8177', '2025-07-30 07:33:36.147638', '2025-07-30 07:33:36.147638') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'valentine_larson@donnelly.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Elliott Auer', 'valentine_larson@donnelly.example', '(938) 394-2680', '6290 Ferry Loop', 'Toryberg', 'Hawaii', '13916-5531', '2025-07-30 07:33:36.164086', '2025-07-30 07:33:36.164086') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.0ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'danny.kautzer@lebsack.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Hai Gutmann', 'danny.kautzer@lebsack.test', '(711) 967-8032', '7672 Hollis Groves', 'Anibalstad', 'Idaho', '79692', '2025-07-30 07:33:36.183472', '2025-07-30 07:33:36.183472') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'johnnie@kemmer.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Dannie Koepp', 'johnnie@kemmer.test', '(460) 240-2235', '782 Bashirian Forge', 'Port Thomasineport', 'Virginia', '23378', '2025-07-30 07:33:36.200282', '2025-07-30 07:33:36.200282') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.5ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'leonardo@lockman.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Claude Batz', 'leonardo@lockman.test', '(437) 933-9294', '10146 Heller Burgs', 'Dwightfort', 'Maryland', '35234', '2025-07-30 07:33:36.219577', '2025-07-30 07:33:36.219577') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.1ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'patrick.schneider@quigley.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Rep. Donovan Carter', 'patrick.schneider@quigley.example', '(514) 288-7364', '94348 Ashley Court', 'Edelmirafurt', 'Missouri', '66069', '2025-07-30 07:33:36.238340', '2025-07-30 07:33:36.238340') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.0ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'denae@gusikowski.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Marlon Upton', 'denae@gusikowski.test', '(632) 345-7580', '88194 Kuphal Fields', 'South Angelique', 'Idaho', '40020-0904', '2025-07-30 07:33:36.257652', '2025-07-30 07:33:36.257652') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.3ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'annice.will@blanda.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Rickie Willms', 'annice.will@blanda.test', '(226) 295-4907', '556 Yon Ports', 'Lake Troy', 'Arkansas', '16208-5866', '2025-07-30 07:33:36.278685', '2025-07-30 07:33:36.278685') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'debby.bruen@lehner.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Kieth Turner', 'debby.bruen@lehner.test', '(230) 279-8052', '383 Satterfield Cliffs', 'Beahanchester', 'Texas', '45911-7488', '2025-07-30 07:33:36.302691', '2025-07-30 07:33:36.302691') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.0ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'aja_rutherford@cremin.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Aida Littel', 'aja_rutherford@cremin.test', '(888) 567-7544', '892 Mary Forest', 'Langoshport', 'Alaska', '25320', '2025-07-30 07:33:36.326882', '2025-07-30 07:33:36.326882') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.9ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'barb@stamm.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Hyman Douglas', 'barb@stamm.test', '(500) 927-9179', '729 Sipes Hill', 'Georgehaven', 'Mississippi', '68739', '2025-07-30 07:33:36.348297', '2025-07-30 07:33:36.348297') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'bryce@bergstrom.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Else Stark III', 'bryce@bergstrom.example', '(373) 490-5527', '2170 Jaskolski Neck', 'South Babara', 'Idaho', '69915-2189', '2025-07-30 07:33:36.372585', '2025-07-30 07:33:36.372585') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'shaunta@bernier.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Blondell Donnelly', 'shaunta@bernier.example', '(547) 340-9626', '36505 MacGyver Curve', 'Tomikobury', 'Michigan', '48148', '2025-07-30 07:33:36.395169', '2025-07-30 07:33:36.395169') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'tommy@kertzmann-mckenzie.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Sylvester Dooley', 'tommy@kertzmann-mckenzie.test', '(814) 215-7026', '908 Joye Lodge', 'New Alburgh', 'Illinois', '50216-8527', '2025-07-30 07:33:36.419464', '2025-07-30 07:33:36.419464') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'maurice.schroeder@von.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Lula Mills', 'maurice.schroeder@von.example', '(220) 739-7346', '401 Senaida Expressway', 'Jaskolskiburgh', 'Hawaii', '74156-5601', '2025-07-30 07:33:36.439686', '2025-07-30 07:33:36.439686') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.9ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'jacques@lehner.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Kristopher Goldner', 'jacques@lehner.test', '(881) 311-9109', '99781 Carita Haven', 'East Kiethview', 'Colorado', '83899-0858', '2025-07-30 07:33:36.460122', '2025-07-30 07:33:36.460122') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'renita@howe.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Evon Mills DVM', 'renita@howe.test', '(390) 247-7637', '90379 Lesia Cliffs', 'Blandaton', 'Idaho', '58689-9825', '2025-07-30 07:33:36.476534', '2025-07-30 07:33:36.476534') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'nick_wisozk@koss.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Sang Dooley', 'nick_wisozk@koss.example', '(833) 877-3843', '635 Abernathy Camp', 'Donniefurt', 'Alaska', '70908-3088', '2025-07-30 07:33:36.492366', '2025-07-30 07:33:36.492366') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.9ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'ricardo.considine@fisher.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Yolonda Kiehn', 'ricardo.considine@fisher.test', '(701) 339-9893', '69258 Javier Pines', 'Riceshire', 'Colorado', '24136', '2025-07-30 07:33:36.508490', '2025-07-30 07:33:36.508490') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.2ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'rigoberto.haley@emard.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Johnathan McLaughlin', 'rigoberto.haley@emard.example', '(397) 447-9828', '4047 Durgan Knoll', 'Christelstad', 'Kansas', '44763', '2025-07-30 07:33:36.531722', '2025-07-30 07:33:36.531722') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.1ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'maria@smith-kemmer.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Thaddeus Mraz DC', 'maria@smith-kemmer.example', '(831) 461-8339', '66290 DuBuque Run', 'Lake Angelita', 'Virginia', '10964-1695', '2025-07-30 07:33:36.549356', '2025-07-30 07:33:36.549356') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'hong@ortiz-nienow.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Eduardo Upton LLD', 'hong@ortiz-nienow.test', '(480) 938-9666', '36828 Feest Hill', 'Fionafurt', 'Florida', '31963-0813', '2025-07-30 07:33:36.571374', '2025-07-30 07:33:36.571374') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'lu@rath.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Pres. Rudolf Weber', 'lu@rath.test', '(987) 599-9970', '1193 Ruecker Station', 'West Blaine', 'Arkansas', '94985-1605', '2025-07-30 07:33:36.588364', '2025-07-30 07:33:36.588364') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.6ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'arlie.nader@kuvalis.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Vonnie Feil', 'arlie.nader@kuvalis.test', '(400) 706-7637', '52955 Wisozk Port', 'Vonville', 'Nevada', '94858', '2025-07-30 07:33:36.603652', '2025-07-30 07:33:36.603652') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'sydney@jakubowski.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Randee Reichert Jr.', 'sydney@jakubowski.example', '(450) 397-6196', '106 Cronin Walks', 'North Jimmieland', 'Arizona', '78949-7680', '2025-07-30 07:33:36.639048', '2025-07-30 07:33:36.639048') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'danny@weimann.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.4ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Ferdinand Kunze', 'danny@weimann.example', '(774) 810-8350', '19093 Barton Row', 'Toyshire', 'Maine', '34212-2188', '2025-07-30 07:33:36.659248', '2025-07-30 07:33:36.659248') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.8ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'sally@huels-kunze.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Noel Stark IV', 'sally@huels-kunze.test', '(633) 321-2652', '91872 Verdell Drives', 'North Margareteview', 'Virginia', '13461-1353', '2025-07-30 07:33:36.683964', '2025-07-30 07:33:36.683964') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.3ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'leslie@boehm.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Lon Bins CPA', 'leslie@boehm.test', '(244) 466-4180', '1178 Deneen Brooks', 'Bessieberg', 'Montana', '98905-7463', '2025-07-30 07:33:36.707545', '2025-07-30 07:33:36.707545') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (6.1ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'katy@hammes-hodkiewicz.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Gertha Dickinson', 'katy@hammes-hodkiewicz.test', '(980) 397-9699', '9957 O''Connell Springs', 'West Tommye', 'Kansas', '58404', '2025-07-30 07:33:36.729476', '2025-07-30 07:33:36.729476') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'evelia_ryan@batz-bogan.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (1.0ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Msgr. Paris Dare', 'evelia_ryan@batz-bogan.example', '(666) 922-6681', '5924 Raynor Drive', 'East Nathaliehaven', 'Iowa', '17330', '2025-07-30 07:33:36.752292', '2025-07-30 07:33:36.752292') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.6ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'kenisha_moen@durgan.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Miss Charla Batz', 'kenisha_moen@durgan.test', '(343) 336-2258', '77922 Collins Fords', 'Port Gradyshire', 'Louisiana', '45834', '2025-07-30 07:33:36.773609', '2025-07-30 07:33:36.773609') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'truman@waters.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Rev. Don Gleason', 'truman@waters.test', '(279) 479-6994', '37827 May Glens', 'Lednerhaven', 'Arkansas', '97930', '2025-07-30 07:33:36.790109', '2025-07-30 07:33:36.790109') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'asley@balistreri.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Lorenzo Gulgowski', 'asley@balistreri.example', '(992) 797-5764', '51745 Meta Plain', 'South Marcusmouth', 'Louisiana', '20007', '2025-07-30 07:33:36.806234', '2025-07-30 07:33:36.806234') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.7ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'jeri@johnston.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Lindsey Rolfson', 'jeri@johnston.example', '(783) 537-3879', '85144 Hyatt Cove', 'Koelpinport', 'Indiana', '27923-5490', '2025-07-30 07:33:36.821600', '2025-07-30 07:33:36.821600') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.6ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'darron_goodwin@hoppe.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Mack Olson', 'darron_goodwin@hoppe.test', '(630) 877-8859', '4341 Mitchell Streets', 'Strosinburgh', 'Minnesota', '77795-7580', '2025-07-30 07:33:36.844581', '2025-07-30 07:33:36.844581') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (5.9ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'amberly@ziemann-kuhlman.example' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.3ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Chad Klocko', 'amberly@ziemann-kuhlman.example', '(387) 544-5485', '393 Illa Circles', 'Kuhnfurt', 'Colorado', '29598', '2025-07-30 07:33:36.869766', '2025-07-30 07:33:36.869766') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Exists? (3.9ms)[0m  [1m[34mSELECT 1 AS one FROM "owners" WHERE "owners"."email" = 'angla@rosenbaum-deckow.test' LIMIT 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Create (0.2ms)[0m  [1m[32mINSERT INTO "owners" ("name", "email", "phone", "address", "city", "state", "zip_code", "created_at", "updated_at") VALUES ('Msgr. Gerry Nicolas', 'angla@rosenbaum-deckow.test', '(748) 819-9926', '836 Schuster Freeway', 'Hammesport', 'South Dakota', '86834', '2025-07-30 07:33:36.887817', '2025-07-30 07:33:36.887817') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Load (0.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Load (0.6ms)[0m  [1m[34mSELECT "owners".* FROM "owners" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.9ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (67, 20, '2025-07-09', 385.63, 'Atque pariatur aspernatur. Facere aperiam quis.', '2025-07-30 07:33:37.347847', '2025-07-30 07:33:37.347847') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.4ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 67 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.4ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (54, 1, '2025-02-09', 600.49, 'Fuga ipsum id. Quia id quia.', '2025-07-30 07:33:37.379010', '2025-07-30 07:33:37.379010') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 54 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.1ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (38, 21, '2025-03-15', 804.39, 'Vel voluptas qui. A excepturi sit.', '2025-07-30 07:33:37.399760', '2025-07-30 07:33:37.399760') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 38 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.4ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (91, 36, '2025-05-07', 935.23, 'Quibusdam id cumque. Dignissimos sunt eius.', '2025-07-30 07:33:37.420243', '2025-07-30 07:33:37.420243') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 91 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.3ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (66, 15, '2024-12-02', 727.31, 'Facilis fugit sint. Nisi debitis eius.', '2025-07-30 07:33:37.439471', '2025-07-30 07:33:37.439471') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.6ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 66 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.2ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (59, 29, '2024-09-28', 408.86, 'Cumque officiis corporis. Voluptatibus cupiditate error.', '2025-07-30 07:33:37.460274', '2025-07-30 07:33:37.460274') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 59 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.6ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (44, 12, '2025-06-01', 833.14, 'Aut nemo iure. Nam reiciendis tempora.', '2025-07-30 07:33:37.480177', '2025-07-30 07:33:37.480177') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 44 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.9ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (78, 35, '2024-09-26', 514.61, 'Et eaque sint. Aut quis et.', '2025-07-30 07:33:37.503548', '2025-07-30 07:33:37.503548') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.2ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 78 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.8ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (75, 40, '2025-04-18', 145.78, 'Ut velit sit. Quidem nihil autem.', '2025-07-30 07:33:37.522814', '2025-07-30 07:33:37.522814') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.2ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 75 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.2ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (53, 20, '2024-08-16', 103.68, 'Facere est ut. Dolores cupiditate quas.', '2025-07-30 07:33:37.542122', '2025-07-30 07:33:37.542122') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 53 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.2ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (56, 24, '2025-06-23', 174.73, 'Corrupti consequatur cumque. Nobis nostrum soluta.', '2025-07-30 07:33:37.562938', '2025-07-30 07:33:37.562938') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 56 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.7ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (62, 4, '2025-02-06', 494.32, 'Harum qui tempora. Harum qui qui.', '2025-07-30 07:33:37.582293', '2025-07-30 07:33:37.582293') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 62 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (9.8ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (80, 12, '2024-08-20', 689.58, 'Officiis voluptas totam. Qui veniam saepe.', '2025-07-30 07:33:37.600576', '2025-07-30 07:33:37.600576') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 80 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.8ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (79, 10, '2024-11-17', 370.67, 'Molestiae esse eum. Placeat error eius.', '2025-07-30 07:33:37.624207', '2025-07-30 07:33:37.624207') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.2ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 79 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.8ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (55, 15, '2025-06-06', 447.98, 'Sed nemo quibusdam. Eum dolorem suscipit.', '2025-07-30 07:33:37.644267', '2025-07-30 07:33:37.644267') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.5ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 55 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.0ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (90, 30, '2025-04-17', 569.08, 'Tempora molestiae sapiente. Dolores quis voluptas.', '2025-07-30 07:33:37.665671', '2025-07-30 07:33:37.665671') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 90 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.6ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (71, 32, '2025-06-20', 867.89, 'Rerum consequatur ut. Est quod ea.', '2025-07-30 07:33:37.686497', '2025-07-30 07:33:37.686497') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 71 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (6.4ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (92, 8, '2024-10-06', 121.73, 'Distinctio non quibusdam. Quam deserunt qui.', '2025-07-30 07:33:37.707899', '2025-07-30 07:33:37.707899') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 92 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.8ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (65, 4, '2025-01-28', 717.13, 'Dolorem dolorum iure. Voluptas beatae harum.', '2025-07-30 07:33:37.736825', '2025-07-30 07:33:37.736825') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 65 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (7.6ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (74, 11, '2024-12-30', 722.54, 'Fuga eos nihil. Dolores quia doloremque.', '2025-07-30 07:33:37.761115', '2025-07-30 07:33:37.761115') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 74 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.0ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (58, 27, '2025-04-02', 571.68, 'Consequuntur beatae nisi. Inventore ut nostrum.', '2025-07-30 07:33:37.783775', '2025-07-30 07:33:37.783775') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.4ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 58 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.5ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (42, 40, '2025-03-19', 256.13, 'Vero molestiae fuga. Voluptatem occaecati est.', '2025-07-30 07:33:37.802405', '2025-07-30 07:33:37.802405') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.2ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 42 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.7ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (69, 3, '2025-02-04', 133.66, 'Recusandae veritatis consequatur. Blanditiis mollitia voluptates.', '2025-07-30 07:33:37.823519', '2025-07-30 07:33:37.823519') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.2ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 69 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.0ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (39, 40, '2025-04-01', 343.84, 'Qui facere ex. At sint eos.', '2025-07-30 07:33:37.841290', '2025-07-30 07:33:37.841290') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.5ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 39 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (6.5ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (84, 27, '2025-02-25', 465.94, 'Eum est non. Fugit deleniti sapiente.', '2025-07-30 07:33:37.884065', '2025-07-30 07:33:37.884065') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.2ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 84 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (12.7ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (70, 27, '2025-03-10', 810.14, 'Molestiae vitae dolorum. Delectus quisquam doloribus.', '2025-07-30 07:33:37.907445', '2025-07-30 07:33:37.907445') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 70 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.7ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (49, 13, '2025-01-28', 718.73, 'Ut expedita modi. Tempore amet consequatur.', '2025-07-30 07:33:37.937020', '2025-07-30 07:33:37.937020') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 49 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (5.0ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (41, 13, '2025-01-10', 512.72, 'Voluptas enim harum. Atque et odio.', '2025-07-30 07:33:37.956091', '2025-07-30 07:33:37.956091') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (14.4ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 41 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (6.4ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (37, 40, '2025-04-22', 911.76, 'Vel mollitia temporibus. Molestias quibusdam dicta.', '2025-07-30 07:33:37.989436', '2025-07-30 07:33:37.989436') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 37 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Create (4.8ms)[0m  [1m[32mINSERT INTO "adoptions" ("dog_id", "owner_id", "adoption_date", "adoption_fee", "notes", "created_at", "updated_at") VALUES (83, 3, '2025-04-12', 870.01, 'Qui occaecati rerum. Assumenda ut rerum.', '2025-07-30 07:33:38.011227', '2025-07-30 07:33:38.011227') RETURNING "id" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Update (0.3ms)[0m  [1m[33mUPDATE "dogs" SET "available_for_adoption" = 0 WHERE "dogs"."id" = 83 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*application='DogAdoptionSystem'*/[0m
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mAdoption Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions" /*application='DogAdoptionSystem'*/[0m
+  [1m[36mCACHE Dog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs"[0m
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  [1m[36mCACHE Adoption Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions"[0m
