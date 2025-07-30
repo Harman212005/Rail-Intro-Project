@@ -1,2 +1,166 @@
-<h1>Dogs#show</h1>
-<p>Find me in app/views/dogs/show.html.erb</p>
+<div class="container mt-4">
+  <div class="row">
+    <!-- Back Navigation -->
+    <div class="col-12 mb-3">
+      <%= link_to "← Back to All Dogs", dogs_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Dog Image -->
+    <div class="col-lg-6">
+      <div class="card">
+        <img src="<%= @dog.image_url %>" class="card-img-top" alt="<%= @dog.name %>" style="height: 400px; object-fit: cover;">
+        <div class="card-body text-center">
+          <% if @dog.available_for_adoption? %>
+            <span class="badge bg-success fs-6 p-2">Available for Adoption</span>
+          <% else %>
+            <span class="badge bg-secondary fs-6 p-2">Already Adopted</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dog Information -->
+    <div class="col-lg-6">
+      <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+          <h1 class="mb-0"><%= @dog.name %></h1>
+          <p class="mb-0 opacity-75">ID: #<%= @dog.id %></p>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-sm-6">
+              <h5>Basic Information</h5>
+              <table class="table table-borderless">
+                <tr>
+                  <td><strong>Breed:</strong></td>
+                  <td><%= link_to @dog.breed, breed_path(@dog.breed), class: "text-decoration-none" %></td>
+                </tr>
+                <tr>
+                  <td><strong>Age:</strong></td>
+                  <td><%= @dog.age %> years old</td>
+                </tr>
+                <tr>
+                  <td><strong>Status:</strong></td>
+                  <td>
+                    <% if @dog.available_for_adoption? %>
+                      <span class="text-success fw-bold">Available for Adoption</span>
+                    <% else %>
+                      <span class="text-secondary fw-bold">Adopted</span>
+                    <% end %>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <h5>Record Details</h5>
+              <table class="table table-borderless">
+                <tr>
+                  <td><strong>Added to System:</strong></td>
+                  <td><%= @dog.created_at.strftime("%B %d, %Y") %></td>
+                </tr>
+                <tr>
+                  <td><strong>Last Updated:</strong></td>
+                  <td><%= @dog.updated_at.strftime("%B %d, %Y") %></td>
+                </tr>
+                <tr>
+                  <td><strong>Database ID:</strong></td>
+                  <td>#<%= @dog.id %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <h5>About <%= @dog.name %></h5>
+            <p class="lead"><%= @dog.description %></p>
+          </div>
+
+          <div class="mb-3">
+            <h5>Image Information</h5>
+            <p class="text-muted small">
+              <strong>Image Source:</strong> Dog API<br>
+              <strong>URL:</strong> <a href="<%= @dog.image_url %>" target="_blank" class="text-break"><%= @dog.image_url %></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Adoption Information Section -->
+  <% if @adoption.present? %>
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card border-info">
+        <div class="card-header bg-info text-white">
+          <h3 class="mb-0">🏠 Adoption Information</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Adopted by:</h5>
+              <div class="p-3 bg-light rounded">
+                <h6 class="text-primary"><%= @adoption.owner.name %></h6>
+                <p class="mb-1"><strong>Email:</strong> <%= @adoption.owner.email %></p>
+                <p class="mb-1"><strong>Phone:</strong> <%= @adoption.owner.phone %></p>
+                <p class="mb-0"><strong>Address:</strong> <%= @adoption.owner.address %>, <%= @adoption.owner.city %>, <%= @adoption.owner.state %> <%= @adoption.owner.zip_code %></p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h5>Adoption Details:</h5>
+              <div class="p-3 bg-light rounded">
+                <p class="mb-1"><strong>Adoption Date:</strong> <%= @adoption.adoption_date.strftime("%B %d, %Y") %></p>
+                <p class="mb-1"><strong>Adoption Fee:</strong> $<%= @adoption.adoption_fee %></p>
+                <% if @adoption.notes.present? %>
+                  <p class="mb-0"><strong>Notes:</strong> <%= @adoption.notes %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% else %>
+  <!-- Available for Adoption Call-to-Action -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card border-success">
+        <div class="card-header bg-success text-white">
+          <h3 class="mb-0">💚 Available for Adoption!</h3>
+        </div>
+        <div class="card-body text-center">
+          <h4><%= @dog.name %> is looking for a loving home!</h4>
+          <p class="lead">This wonderful <%= @dog.breed.downcase %> is ready to become part of your family.</p>
+          <p>If you're interested in adopting <%= @dog.name %>, please contact our adoption center for more information about the adoption process.</p>
+          <div class="mt-3">
+            <button class="btn btn-success btn-lg me-2">Start Adoption Process</button>
+            <button class="btn btn-outline-success btn-lg">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <!-- Navigation -->
+  <div class="row mt-4">
+    <div class="col-12 text-center">
+      <%= link_to "← Back to All Dogs", dogs_path, class: "btn btn-primary" %>
+      
+      <!-- Previous/Next Navigation -->
+      <% prev_dog = Dog.where("id < ?", @dog.id).order(id: :desc).first %>
+      <% next_dog = Dog.where("id > ?", @dog.id).order(id: :asc).first %>
+      
+      <% if prev_dog %>
+        <%= link_to "← Previous Dog", dog_path(prev_dog), class: "btn btn-outline-secondary ms-2" %>
+      <% end %>
+      
+      <% if next_dog %>
+        <%= link_to "Next Dog →", dog_path(next_dog), class: "btn btn-outline-secondary ms-2" %>
+      <% end %>
+    </div>
+  </div>
+</div>

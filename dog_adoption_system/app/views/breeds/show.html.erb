@@ -1,0 +1,177 @@
+<div class="container mt-4">
+  <!-- Navigation Breadcrumb -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+      <li class="breadcrumb-item"><%= link_to "All Dogs", dogs_path %></li>
+      <li class="breadcrumb-item"><%= link_to "Breeds", breeds_path %></li>
+      <li class="breadcrumb-item active"><%= @breed_name %></li>
+    </ol>
+  </nav>
+
+  <!-- Breed Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h1 class="mb-2"><%= @breed_name %> Dogs</h1>
+              <p class="lead mb-0">
+                We have <%= @breed_stats[:total] %> <%= @breed_name.downcase %> 
+                <%= 'dog'.pluralize(@breed_stats[:total]) %> in our system
+              </p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <%= link_to "← Back to All Breeds", breeds_path, class: "btn btn-light" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breed Statistics -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card bg-info text-white text-center">
+        <div class="card-body">
+          <h3><%= @breed_stats[:total] %></h3>
+          <p>Total <%= @breed_name %> Dogs</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-success text-white text-center">
+        <div class="card-body">
+          <h3><%= @breed_stats[:available] %></h3>
+          <p>Available for Adoption</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-secondary text-white text-center">
+        <div class="card-body">
+          <h3><%= @breed_stats[:adopted] %></h3>
+          <p>Successfully Adopted</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs for this breed -->
+  <ul class="nav nav-tabs" id="breedDogTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="all-breed-tab" data-bs-toggle="tab" data-bs-target="#all-breed" type="button" role="tab">
+        All <%= @breed_name %> Dogs (<%= @breed_stats[:total] %>)
+      </button>
+    </li>
+    <% if @breed_stats[:available] > 0 %>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="available-breed-tab" data-bs-toggle="tab" data-bs-target="#available-breed" type="button" role="tab">
+        Available (<%= @breed_stats[:available] %>)
+      </button>
+    </li>
+    <% end %>
+    <% if @breed_stats[:adopted] > 0 %>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="adopted-breed-tab" data-bs-toggle="tab" data-bs-target="#adopted-breed" type="button" role="tab">
+        Adopted (<%= @breed_stats[:adopted] %>)
+      </button>
+    </li>
+    <% end %>
+  </ul>
+
+  <!-- Tab Content -->
+  <div class="tab-content" id="breedDogTabContent">
+    <!-- All Dogs of this breed -->
+    <div class="tab-pane fade show active" id="all-breed" role="tabpanel">
+      <div class="row mt-3">
+        <% @dogs.each do |dog| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <img src="<%= dog.image_url %>" class="card-img-top" alt="<%= dog.name %>" style="height: 250px; object-fit: cover;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">
+                  <%= link_to dog.name, dog_path(dog), class: "text-decoration-none" %>
+                </h5>
+                <p class="card-text">
+                  <strong>Age:</strong> <%= dog.age %> years old<br>
+                  <strong>Status:</strong> 
+                  <% if dog.available_for_adoption? %>
+                    <span class="badge bg-success">Available</span>
+                  <% else %>
+                    <span class="badge bg-secondary">Adopted</span>
+                  <% end %>
+                </p>
+                <p class="card-text flex-grow-1"><%= truncate(dog.description, length: 80) %></p>
+                <div class="mt-auto">
+                  <%= link_to "View Details", dog_path(dog), class: "btn btn-primary btn-sm" %>
+                  <%= link_to "Back to Breeds", breeds_path, class: "btn btn-outline-secondary btn-sm" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Available dogs of this breed -->
+    <% if @breed_stats[:available] > 0 %>
+    <div class="tab-pane fade" id="available-breed" role="tabpanel">
+      <div class="row mt-3" id="available">
+        <% @available_dogs.each do |dog| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 border-success">
+              <img src="<%= dog.image_url %>" class="card-img-top" alt="<%= dog.name %>" style="height: 250px; object-fit: cover;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-success">
+                  <%= link_to dog.name, dog_path(dog), class: "text-decoration-none text-success" %>
+                </h5>
+                <p class="card-text">
+                  <strong>Age:</strong> <%= dog.age %> years old<br>
+                  <span class="badge bg-success">Ready for Adoption!</span>
+                </p>
+                <p class="card-text flex-grow-1"><%= truncate(dog.description, length: 80) %></p>
+                <div class="mt-auto">
+                  <%= link_to "Adopt #{dog.name}!", dog_path(dog), class: "btn btn-success btn-sm" %>
+                  <%= link_to "Browse Breeds", breeds_path, class: "btn btn-outline-secondary btn-sm" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+
+    <!-- Adopted dogs of this breed -->
+    <% if @breed_stats[:adopted] > 0 %>
+    <div class="tab-pane fade" id="adopted-breed" role="tabpanel">
+      <div class="row mt-3">
+        <% @adopted_dogs.each do |dog| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 border-secondary">
+              <img src="<%= dog.image_url %>" class="card-img-top" alt="<%= dog.name %>" style="height: 250px; object-fit: cover;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-secondary">
+                  <%= link_to dog.name, dog_path(dog), class: "text-decoration-none text-secondary" %>
+                </h5>
+                <p class="card-text">
+                  <strong>Age:</strong> <%= dog.age %> years old<br>
+                  <span class="badge bg-secondary">Happy in new home</span>
+                </p>
+                <p class="card-text flex-grow-1"><%= truncate(dog.description, length: 80) %></p>
+                <div class="mt-auto">
+                  <%= link_to "View Story", dog_path(dog), class: "btn btn-outline-secondary btn-sm" %>
+                  <%= link_to "Other Breeds", breeds_path, class: "btn btn-outline-primary btn-sm" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

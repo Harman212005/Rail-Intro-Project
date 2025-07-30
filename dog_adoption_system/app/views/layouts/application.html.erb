@@ -32,6 +32,9 @@
               <%= link_to "Available Dogs", dogs_path, class: "nav-link #{'active' if current_page?(dogs_path)}" %>
             </li>
             <li class="nav-item">
+              <%= link_to "Browse by Breed", breeds_path, class: "nav-link #{'active' if current_page?(breeds_path)}" %>
+            </li>
+            <li class="nav-item">
               <%= link_to "Adoptions", "#", class: "nav-link" %>
             </li>
             <li class="nav-item">

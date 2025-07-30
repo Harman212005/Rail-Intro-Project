@@ -1,3 +1,4 @@
+/* Custom styles for Dog Adoption System */
 
 body {
   min-height: 100vh;
@@ -33,6 +34,7 @@ main {
   font-size: 0.9rem;
 }
 
+/* Custom button styles */
 .btn-custom {
   background-color: #28a745;
   border-color: #28a745;
@@ -45,11 +47,32 @@ main {
   color: white;
 }
 
+/* Table improvements */
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(0, 123, 255, 0.05);
 }
 
+/* Stats cards */
 .stats-card {
   border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Breed card styles */
+.breed-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #dee2e6;
+}
+
+.breed-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stat-box {
+  transition: background-color 0.2s;
+}
+
+.stat-box:hover {
+  opacity: 0.9;
 }

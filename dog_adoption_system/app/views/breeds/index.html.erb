@@ -1,0 +1,116 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1>Browse Dogs by Breed</h1>
+      <p class="lead">Explore our <%= @total_breeds %> different dog breeds and find your perfect companion.</p>
+      
+      <!-- Navigation Breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+          <li class="breadcrumb-item"><%= link_to "All Dogs", dogs_path %></li>
+          <li class="breadcrumb-item active">Breeds</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Breed Categories Grid -->
+  <div class="row">
+    <% @breeds_data.each do |breed_data| %>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100 breed-card">
+          <div class="card-body">
+            <h5 class="card-title text-primary">
+              <%= link_to breed_data[:breed], breed_path(breed_data[:breed]), 
+                  class: "text-decoration-none" %>
+            </h5>
+            
+            <!-- Breed Statistics -->
+            <div class="row text-center mb-3">
+              <div class="col-4">
+                <div class="stat-box bg-info text-white rounded p-2">
+                  <div class="fs-5 fw-bold"><%= breed_data[:total_count] %></div>
+                  <small>Total</small>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="stat-box bg-success text-white rounded p-2">
+                  <div class="fs-5 fw-bold"><%= breed_data[:available_count] %></div>
+                  <small>Available</small>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="stat-box bg-secondary text-white rounded p-2">
+                  <div class="fs-5 fw-bold"><%= breed_data[:adopted_count] %></div>
+                  <small>Adopted</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Stats Bar -->
+            <div class="mb-3">
+              <% total = breed_data[:total_count].to_f %>
+              <% available_percent = total > 0 ? (breed_data[:available_count] / total * 100).round : 0 %>
+              <% adopted_percent = total > 0 ? (breed_data[:adopted_count] / total * 100).round : 0 %>
+              
+              <div class="progress" style="height: 8px;">
+                <div class="progress-bar bg-success" style="width: <%= available_percent %>%" 
+                     title="<%= available_percent %>% Available"></div>
+                <div class="progress-bar bg-secondary" style="width: <%= adopted_percent %>%" 
+                     title="<%= adopted_percent %>% Adopted"></div>
+              </div>
+              <small class="text-muted">
+                <%= available_percent %>% available, <%= adopted_percent %>% adopted
+              </small>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2">
+              <%= link_to "View #{breed_data[:breed]} Dogs", breed_path(breed_data[:breed]), 
+                  class: "btn btn-primary" %>
+              <% if breed_data[:available_count] > 0 %>
+                <%= link_to "#{breed_data[:available_count]} Available for Adoption", 
+                    breed_path(breed_data[:breed], anchor: 'available'), 
+                    class: "btn btn-outline-success btn-sm" %>
+              <% else %>
+                <button class="btn btn-outline-secondary btn-sm" disabled>
+                  No dogs available
+                </button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Summary Statistics -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card bg-light">
+        <div class="card-body">
+          <h5>Breed Summary</h5>
+          <div class="row text-center">
+            <div class="col-md-3">
+              <h4 class="text-primary"><%= @total_breeds %></h4>
+              <p>Different Breeds</p>
+            </div>
+            <div class="col-md-3">
+              <h4 class="text-info"><%= Dog.count %></h4>
+              <p>Total Dogs</p>
+            </div>
+            <div class="col-md-3">
+              <h4 class="text-success"><%= Dog.available.count %></h4>
+              <p>Available for Adoption</p>
+            </div>
+            <div class="col-md-3">
+              <h4 class="text-secondary"><%= Dog.adopted.count %></h4>
+              <p>Successfully Adopted</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
