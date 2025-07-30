@@ -1,5 +1,4 @@
 class Owner < ApplicationRecord
-  # Validations
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
   validates :email, presence: true, uniqueness: true, 
             format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }
@@ -10,9 +9,7 @@ class Owner < ApplicationRecord
   validates :zip_code, presence: true, 
             format: { with: /\A\d{5}(-\d{4})?\z/, message: "Invalid zip code format" }
 
-  # Direct associations
   has_many :adoptions, dependent: :destroy
   
-  # Many-to-many through adoptions
   has_many :dogs, through: :adoptions
 end

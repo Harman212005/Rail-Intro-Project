@@ -1,0 +1,133 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h1 class="text-center mb-4">About Dog Adoption System</h1>
+      
+      <div class="card">
+        <div class="card-body">
+          <h3>Project Overview</h3>
+          <p>This Ruby on Rails application manages a comprehensive dog adoption system using data from multiple reliable sources to provide accurate and up-to-date information about dogs available for adoption.</p>
+
+          <h3>Data Sources</h3>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0">1. Dog API</h5>
+                </div>
+                <div class="card-body">
+                  <p><strong>Source:</strong> <a href="https://dog.ceo/dog-api/" target="_blank">dog.ceo/dog-api</a></p>
+                  <p><strong>Data:</strong> Real dog breed information and authentic breed images</p>
+                  <p><strong>Usage:</strong> Populates our Dogs table with <%= Dog.count %> dogs from <%= Dog.distinct.count(:breed) %> different breeds</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                  <h5 class="mb-0">2. Faker Gem - Owners</h5>
+                </div>
+                <div class="card-body">
+                  <p><strong>Source:</strong> Ruby Faker Gem</p>
+                  <p><strong>Data:</strong> Realistic owner contact information</p>
+                  <p><strong>Usage:</strong> Generated <%= Owner.count %> potential adopters with names, emails, addresses, and phone numbers</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <div class="card border-warning">
+                <div class="card-header bg-warning text-white">
+                  <h5 class="mb-0">3. Faker Gem - Adoptions</h5>
+                </div>
+                <div class="card-body">
+                  <p><strong>Source:</strong> Ruby Faker Gem</p>
+                  <p><strong>Data:</strong> Adoption history and records</p>
+                  <p><strong>Usage:</strong> Created <%= Adoption.count %> adoption records with dates, fees, and notes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3>Database Structure</h3>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Table</th>
+                  <th>Purpose</th>
+                  <th>Key Fields</th>
+                  <th>Record Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Dogs</strong></td>
+                  <td>Store dog information and availability</td>
+                  <td>breed, name, age, image_url, description, available_for_adoption</td>
+                  <td><%= Dog.count %></td>
+                </tr>
+                <tr>
+                  <td><strong>Owners</strong></td>
+                  <td>Manage adopter contact information</td>
+                  <td>name, email, phone, address, city, state, zip_code</td>
+                  <td><%= Owner.count %></td>
+                </tr>
+                <tr>
+                  <td><strong>Adoptions</strong></td>
+                  <td>Track adoption history and relationships</td>
+                  <td>dog_id, owner_id, adoption_date, adoption_fee, notes</td>
+                  <td><%= Adoption.count %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Relationships</h3>
+          <ul>
+            <li><strong>Many-to-Many:</strong> Dogs and Owners through Adoptions (a dog can be adopted by an owner, and owners can adopt multiple dogs)</li>
+            <li><strong>One-to-Many:</strong> Dogs have many Adoptions</li>
+            <li><strong>One-to-Many:</strong> Owners have many Adoptions</li>
+          </ul>
+
+          <h3>Current Statistics</h3>
+          <div class="row text-center">
+            <div class="col-md-3">
+              <div class="card bg-info text-white">
+                <div class="card-body">
+                  <h4><%= Dog.available.count %></h4>
+                  <p>Available Dogs</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card bg-secondary text-white">
+                <div class="card-body">
+                  <h4><%= Dog.adopted.count %></h4>
+                  <p>Adopted Dogs</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card bg-success text-white">
+                <div class="card-body">
+                  <h4><%= Owner.count %></h4>
+                  <p>Registered Owners</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card bg-warning text-white">
+                <div class="card-body">
+                  <h4><%= Adoption.count %></h4>
+                  <p>Total Adoptions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

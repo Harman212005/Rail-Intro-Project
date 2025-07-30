@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <div class="jumbotron bg-primary text-white text-center py-5 mb-4 rounded">
+    <h1 class="display-4">🐕 Dog Adoption System</h1>
+    <p class="lead">Find your perfect furry companion and give a dog a loving home</p>
+    <hr class="my-4">
+    <p>We help connect dogs in need with loving families through our comprehensive adoption platform.</p>
+  </div>
+
+  <div class="row text-center mb-4">
+    <div class="col-md-3">
+      <div class="card bg-success text-white h-100">
+        <div class="card-body">
+          <h2><%= @available_dogs_count %></h2>
+          <p class="card-text">Dogs Available for Adoption</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-info text-white h-100">
+        <div class="card-body">
+          <h2><%= @adopted_dogs_count %></h2>
+          <p class="card-text">Dogs Successfully Adopted</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-white h-100">
+        <div class="card-body">
+          <h2><%= @total_owners %></h2>
+          <p class="card-text">Registered Families</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-secondary text-white h-100">
+        <div class="card-body">
+          <h2><%= @total_adoptions %></h2>
+          <p class="card-text">Happy Adoptions</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if @recent_adoptions.any? %>
+  <div class="row">
+    <div class="col-12">
+      <h3>Recent Adoptions</h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Dog</th>
+              <th>Breed</th>
+              <th>Adopted by</th>
+              <th>Date</th>
+              <th>Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_adoptions.each do |adoption| %>
+            <tr>
+              <td><strong><%= adoption.dog.name %></strong></td>
+              <td><%= adoption.dog.breed %></td>
+              <td><%= adoption.owner.name %></td>
+              <td><%= adoption.adoption_date.strftime("%B %d, %Y") %></td>
+              <td>$<%= adoption.adoption_fee %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

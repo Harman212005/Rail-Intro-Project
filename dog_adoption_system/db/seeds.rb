@@ -1,7 +1,6 @@
 require 'net/http'
 require 'json'
 
-# Clear existing data
 puts "Clearing existing data..."
 Adoption.destroy_all
 Dog.destroy_all
@@ -9,7 +8,6 @@ Owner.destroy_all
 
 puts "Starting to seed data..."
 
-# DATA SOURCE 1: Dog API for breeds and images
 puts "Fetching dog breeds from Dog API..."
 
 def fetch_dog_breeds
@@ -47,12 +45,10 @@ end
 breeds = fetch_dog_breeds
 puts "Found #{breeds.length} breeds"
 
-# Create 60 dogs using API data
 dogs_created = 0
 60.times do |i|
   breed = breeds.sample
   
-  # Fetch image for this breed
   image_url = fetch_dog_image(breed)
   
   dog = Dog.create!(
@@ -70,7 +66,6 @@ end
 
 puts "\nCreated #{dogs_created} dogs from Dog API data"
 
-# DATA SOURCE 2: Faker gem for owner data
 puts "Creating owners using Faker gem..."
 
 owners_created = 0
@@ -89,23 +84,18 @@ end
 
 puts "Created #{owners_created} owners using Faker"
 
-# DATA SOURCE 3: Faker gem for adoption records (separate logic)
 puts "Creating adoption records using Faker gem..."
 
-# Get only dogs that are available for adoption
 available_dogs = Dog.where(available_for_adoption: true).to_a
 all_owners = Owner.all.to_a
 
 adoptions_created = 0
 [30, available_dogs.length].min.times do
-  # Pick a random dog that is available for adoption
   dog_to_adopt = available_dogs.sample
   break if dog_to_adopt.nil?
   
-  # Pick a random owner
   random_owner = all_owners.sample
   
-  # Create adoption record BEFORE updating dog status
   adoption = Adoption.create!(
     dog: dog_to_adopt,
     owner: random_owner,
@@ -114,7 +104,6 @@ adoptions_created = 0
     notes: Faker::Lorem.paragraph(sentence_count: 2)
   )
   
-  # NOW mark dog as adopted and remove from available list
   dog_to_adopt.update_column(:available_for_adoption, false)
   available_dogs.delete(dog_to_adopt)
   
@@ -123,7 +112,6 @@ end
 
 puts "Created #{adoptions_created} adoption records using Faker"
 
-# Final statistics
 puts "\n" + "="*50
 puts "SEEDING COMPLETED!"
 puts "="*50
@@ -135,5 +123,4 @@ puts "Total Adoptions: #{Adoption.count}"
 puts "Total Records: #{Dog.count + Owner.count + Adoption.count}"
 puts "="*50
 
-# Reset Faker unique values for future runs
 Faker::Internet.unique.clear
