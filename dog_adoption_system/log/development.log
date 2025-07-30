@@ -797,3 +797,108 @@ FOREIGN KEY ("owner_id")
   [1m[36mCACHE Dog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs"[0m
   [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
   [1m[36mCACHE Adoption Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions"[0m
+Started GET "/" for 127.0.0.1 at 2025-07-30 13:51:20 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+Processing by PagesController#home as HTML
+  [1m[36mDog Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:4:in `home'
+  [1m[36mOwner Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:5:in `home'
+  [1m[36mAdoption Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions" /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:6:in `home'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mAdoption Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "adoptions" LIMIT 1 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:44
+  [1m[36mAdoption Load (0.5ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" ORDER BY "adoptions"."adoption_date" DESC LIMIT 5 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  [1m[36mDog Load (0.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."id" IN (67, 56, 71, 55, 44) /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  [1m[36mOwner Load (0.5ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" IN (20, 24, 32, 15, 12) /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  Rendered pages/home.html.erb within layouts/application (Duration: 519.0ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:51
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:52
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/layouts/application.html.erb:54
+  Rendered layout layouts/application.html.erb (Duration: 582.6ms | GC: 0.0ms)
+Completed 200 OK in 21550ms (Views: 872.0ms | ActiveRecord: 15.7ms (11 queries, 3 cached) | GC: 1.3ms)
+
+
+Started GET "/assets/application-807c213f.css" for 127.0.0.1 at 2025-07-30 13:51:45 +0530
+Started GET "/favicon.ico" for 127.0.0.1 at 2025-07-30 13:51:47 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/about" for 127.0.0.1 at 2025-07-30 13:52:32 +0530
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:21
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(DISTINCT "dogs"."breed") FROM "dogs" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:21
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:34
+  [1m[36mAdoption Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:47
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs"[0m
+  ↳ app/views/pages/about.html.erb:69
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/pages/about.html.erb:75
+  [1m[36mCACHE Adoption Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions"[0m
+  ↳ app/views/pages/about.html.erb:81
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:99
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:107
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/pages/about.html.erb:115
+  [1m[36mCACHE Adoption Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions"[0m
+  ↳ app/views/pages/about.html.erb:123
+  Rendered pages/about.html.erb within layouts/application (Duration: 38.6ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:51
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:52
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/layouts/application.html.erb:54
+  Rendered layout layouts/application.html.erb (Duration: 51.7ms | GC: 0.0ms)
+Completed 200 OK in 1083ms (Views: 51.5ms | ActiveRecord: 1.5ms (14 queries, 8 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-30 13:52:45 +0530
+Processing by PagesController#home as HTML
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:4:in `home'
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:5:in `home'
+  [1m[36mAdoption Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions" /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:6:in `home'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mAdoption Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "adoptions" LIMIT 1 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:44
+  [1m[36mAdoption Load (0.9ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" ORDER BY "adoptions"."adoption_date" DESC LIMIT 5 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  [1m[36mDog Load (0.6ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."id" IN (67, 56, 71, 55, 44) /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  [1m[36mOwner Load (0.3ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" IN (20, 24, 32, 15, 12) /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  Rendered pages/home.html.erb within layouts/application (Duration: 23.8ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:51
+  [1m[36mCACHE Dog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:52
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/layouts/application.html.erb:54
+  Rendered layout layouts/application.html.erb (Duration: 36.8ms | GC: 0.0ms)
+Completed 200 OK in 1058ms (Views: 35.9ms | ActiveRecord: 3.3ms (11 queries, 3 cached) | GC: 0.0ms)
+
+
