@@ -2811,3 +2811,871 @@ After search filter: 0 dogs
 Completed 200 OK in 1718ms (Views: 23.4ms | ActiveRecord: 2.6ms (10 queries, 1 cached) | GC: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2025-07-31 09:30:47 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DogAdoptionSystem'*/[0m
+Processing by PagesController#home as HTML
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:4:in `home'
+  [1m[36mOwner Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:5:in `home'
+  [1m[36mAdoption Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions" /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/controllers/pages_controller.rb:6:in `home'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mAdoption Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "adoptions" LIMIT 1 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:44
+  [1m[36mAdoption Load (0.6ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" ORDER BY "adoptions"."adoption_date" DESC LIMIT 5 /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  [1m[36mDog Load (0.5ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."id" IN (67, 56, 71, 55, 44) /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  [1m[36mOwner Load (0.2ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" IN (20, 24, 32, 15, 12) /*action='home',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/home.html.erb:60
+  Rendered pages/home.html.erb within layouts/application (Duration: 452.1ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 780.1ms | GC: 0.0ms)
+Completed 200 OK in 19407ms (Views: 1104.3ms | ActiveRecord: 14.8ms (11 queries, 3 cached) | GC: 0.3ms)
+
+
+Started GET "/breeds/Beagle?search=cute" for 127.0.0.1 at 2025-07-31 09:31:28 +0530
+Processing by BreedsController#show as HTML
+  Parameters: {"search"=>"cute", "breed_name"=>"Beagle"}
+  [1m[36mDog Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "dogs" WHERE "dogs"."breed" = 'Beagle' LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:25:in `show'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND (name LIKE '%cute%' OR description LIKE '%cute%') /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:43:in `show'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND (name LIKE '%cute%' OR description LIKE '%cute%') AND "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:44:in `show'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND (name LIKE '%cute%' OR description LIKE '%cute%') AND "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:45:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering breeds/show.html.erb within layouts/application
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND (name LIKE '%cute%' OR description LIKE '%cute%') ORDER BY "dogs"."name" ASC /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/show.html.erb:90
+  Rendered breeds/show.html.erb within layouts/application (Duration: 9.2ms | GC: 0.0ms)
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 53.7ms | GC: 0.3ms)
+Completed 200 OK in 1548ms (Views: 63.8ms | ActiveRecord: 1.9ms (8 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/dogs" for 127.0.0.1 at 2025-07-31 09:31:32 +0530
+Processing by DogsController#index as HTML
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:6:in `index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:7:in `index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering dogs/index.html.erb within layouts/application
+  [1m[36mDog Load (0.6ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:58
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:88
+  [1m[36mDog Load (1.1ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:112
+  Rendered dogs/index.html.erb within layouts/application (Duration: 27.0ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 40.5ms | GC: 0.0ms)
+Completed 200 OK in 1671ms (Views: 49.5ms | ActiveRecord: 3.0ms (9 queries, 2 cached) | GC: 0.0ms)
+
+
+Started GET "/breeds" for 127.0.0.1 at 2025-07-31 09:31:36 +0530
+Processing by BreedsController#index as HTML
+  [1m[36mDog Pluck (0.4ms)[0m  [1m[34mSELECT DISTINCT "dogs"."breed" FROM "dogs" /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:3:in `index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'African' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'African' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'African' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Akita' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Akita' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Akita' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Australian' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Australian' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Australian' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bakharwal' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bakharwal' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bakharwal' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Buhund' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Buhund' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Buhund' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bulldog' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bulldog' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bulldog' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bullterrier' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bullterrier' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bullterrier' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Chihuahua' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Chihuahua' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Chihuahua' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Collie' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Collie' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Collie' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dalmatian' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dalmatian' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dalmatian' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Doberman' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Doberman' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Doberman' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Elkhound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Elkhound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Elkhound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Gaddi' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Gaddi' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Gaddi' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Greyhound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Greyhound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Greyhound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Groenendael' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Groenendael' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Groenendael' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Havanese' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Havanese' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Havanese' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Keeshond' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Keeshond' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Keeshond' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Komondor' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Komondor' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Komondor' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Kuvasz' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Kuvasz' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Kuvasz' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Labradoodle' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Labradoodle' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Labradoodle' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Malamute' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Malamute' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Malamute' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Maltese' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Maltese' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Maltese' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mastiff' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mastiff' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mastiff' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mountain' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mountain' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mountain' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mudhol' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mudhol' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mudhol' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Newfoundland' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Newfoundland' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Newfoundland' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Otterhound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Otterhound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Otterhound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Papillon' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Papillon' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Papillon' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Pitbull' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Pitbull' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Pitbull' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Puggle' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Puggle' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Puggle' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Redbone' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Redbone' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Redbone' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Rottweiler' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Rottweiler' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Rottweiler' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sharpei' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sharpei' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sharpei' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sheepdog' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sheepdog' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sheepdog' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Shiba' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Shiba' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Shiba' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Springer' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Springer' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Springer' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Terrier' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Terrier' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Terrier' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Vizsla' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Vizsla' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Vizsla' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Weimaraner' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Weimaraner' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Weimaraner' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Whippet' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Whippet' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Whippet' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  Rendering layout layouts/application.html.erb
+  Rendering breeds/index.html.erb within layouts/application
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/index.html.erb:100
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/index.html.erb:104
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/index.html.erb:108
+  Rendered breeds/index.html.erb within layouts/application (Duration: 19.2ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 32.8ms | GC: 0.0ms)
+Completed 200 OK in 2023ms (Views: 33.3ms | ActiveRecord: 26.2ms (136 queries, 2 cached) | GC: 0.9ms)
+
+
+Started GET "/breeds/Dachshund" for 127.0.0.1 at 2025-07-31 09:31:42 +0530
+Processing by BreedsController#show as HTML
+  Parameters: {"breed_name"=>"Dachshund"}
+  [1m[36mDog Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:25:in `show'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:43:in `show'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' AND "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:44:in `show'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' AND "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:45:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering breeds/show.html.erb within layouts/application
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' ORDER BY "dogs"."name" ASC /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/show.html.erb:90
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' AND "dogs"."available_for_adoption" = 1 ORDER BY "dogs"."name" ASC /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/show.html.erb:123
+  Rendered breeds/show.html.erb within layouts/application (Duration: 7.4ms | GC: 0.0ms)
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 16.9ms | GC: 0.0ms)
+Completed 200 OK in 1527ms (Views: 16.3ms | ActiveRecord: 1.9ms (9 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dogs/51" for 127.0.0.1 at 2025-07-31 09:31:47 +0530
+Processing by DogsController#show as HTML
+  Parameters: {"id"=>"51"}
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."id" = 51 LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:12:in `show'
+  [1m[36mAdoption Load (0.3ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 51 ORDER BY "adoptions"."id" ASC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:13:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering dogs/show.html.erb within layouts/application
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE (id < 51) ORDER BY "dogs"."id" DESC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/show.html.erb:154
+  [1m[36mDog Load (0.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE (id > 51) ORDER BY "dogs"."id" ASC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/show.html.erb:155
+  Rendered dogs/show.html.erb within layouts/application (Duration: 15.6ms | GC: 0.0ms)
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 28.9ms | GC: 0.0ms)
+Completed 200 OK in 1860ms (Views: 28.7ms | ActiveRecord: 1.9ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dogs" for 127.0.0.1 at 2025-07-31 09:32:06 +0530
+Processing by DogsController#index as HTML
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:6:in `index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:7:in `index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering dogs/index.html.erb within layouts/application
+  [1m[36mDog Load (5.6ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:58
+  [1m[36mDog Load (1.1ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:88
+  [1m[36mDog Load (0.6ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:112
+  Rendered dogs/index.html.erb within layouts/application (Duration: 31.4ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 43.2ms | GC: 0.0ms)
+Completed 200 OK in 1531ms (Views: 36.7ms | ActiveRecord: 8.1ms (9 queries, 2 cached) | GC: 0.0ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2025-07-31 09:32:23 +0530
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:21
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(DISTINCT "dogs"."breed") FROM "dogs" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:21
+  [1m[36mOwner Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:34
+  [1m[36mAdoption Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions" /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:47
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs"[0m
+  ↳ app/views/pages/about.html.erb:69
+  [1m[36mCACHE Owner Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/pages/about.html.erb:75
+  [1m[36mCACHE Adoption Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions"[0m
+  ↳ app/views/pages/about.html.erb:81
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:99
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='about',application='DogAdoptionSystem',controller='pages'*/[0m
+  ↳ app/views/pages/about.html.erb:107
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/pages/about.html.erb:115
+  [1m[36mCACHE Adoption Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "adoptions"[0m
+  ↳ app/views/pages/about.html.erb:123
+  Rendered pages/about.html.erb within layouts/application (Duration: 41.3ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mCACHE Owner Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners"[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 54.1ms | GC: 0.0ms)
+Completed 200 OK in 1593ms (Views: 53.2ms | ActiveRecord: 2.2ms (14 queries, 8 cached) | GC: 0.0ms)
+
+
+Started GET "/dogs" for 127.0.0.1 at 2025-07-31 09:33:37 +0530
+Processing by DogsController#index as HTML
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:6:in `index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:7:in `index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering dogs/index.html.erb within layouts/application
+  [1m[36mDog Load (0.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:58
+  [1m[36mDog Load (0.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:88
+  [1m[36mDog Load (0.5ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 ORDER BY "dogs"."name" ASC /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/index.html.erb:112
+  Rendered dogs/index.html.erb within layouts/application (Duration: 32.8ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='index',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 47.9ms | GC: 0.0ms)
+Completed 200 OK in 1525ms (Views: 47.1ms | ActiveRecord: 2.4ms (9 queries, 2 cached) | GC: 0.0ms)
+
+
+Started GET "/dogs/57" for 127.0.0.1 at 2025-07-31 09:33:41 +0530
+Processing by DogsController#show as HTML
+  Parameters: {"id"=>"57"}
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."id" = 57 LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:12:in `show'
+  [1m[36mAdoption Load (0.2ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 57 ORDER BY "adoptions"."id" ASC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:13:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering dogs/show.html.erb within layouts/application
+  [1m[36mDog Load (0.2ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE (id < 57) ORDER BY "dogs"."id" DESC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/show.html.erb:154
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE (id > 57) ORDER BY "dogs"."id" ASC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/show.html.erb:155
+  Rendered dogs/show.html.erb within layouts/application (Duration: 10.1ms | GC: 0.0ms)
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 43.8ms | GC: 0.0ms)
+Completed 200 OK in 1533ms (Views: 43.5ms | ActiveRecord: 1.8ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/breeds" for 127.0.0.1 at 2025-07-31 09:34:00 +0530
+Processing by BreedsController#index as HTML
+  [1m[36mDog Pluck (5.4ms)[0m  [1m[34mSELECT DISTINCT "dogs"."breed" FROM "dogs" /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:3:in `index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'African' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'African' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'African' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Akita' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Akita' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Akita' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Australian' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Australian' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Australian' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bakharwal' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bakharwal' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bakharwal' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Beagle' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Buhund' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Buhund' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Buhund' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bulldog' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bulldog' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bulldog' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bullterrier' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bullterrier' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Bullterrier' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Chihuahua' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Chihuahua' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Chihuahua' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Collie' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Collie' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Collie' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dachshund' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dalmatian' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dalmatian' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Dalmatian' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Doberman' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Doberman' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Doberman' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Elkhound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Elkhound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Elkhound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Gaddi' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Gaddi' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Gaddi' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Greyhound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Greyhound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Greyhound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Groenendael' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Groenendael' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Groenendael' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Havanese' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Havanese' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Havanese' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Keeshond' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Keeshond' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Keeshond' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Komondor' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Komondor' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Komondor' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Kuvasz' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Kuvasz' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Kuvasz' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Labradoodle' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Labradoodle' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Labradoodle' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Malamute' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Malamute' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Malamute' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Maltese' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Maltese' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Maltese' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mastiff' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mastiff' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mastiff' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mountain' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mountain' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mountain' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mudhol' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mudhol' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Mudhol' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Newfoundland' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Newfoundland' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Newfoundland' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Otterhound' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Otterhound' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Otterhound' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Papillon' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Papillon' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Papillon' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Pitbull' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Pitbull' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Pitbull' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Puggle' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Puggle' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Puggle' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Redbone' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Redbone' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Redbone' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Rottweiler' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Rottweiler' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Rottweiler' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sharpei' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sharpei' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sharpei' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sheepdog' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sheepdog' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Sheepdog' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Shiba' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Shiba' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Shiba' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Springer' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Springer' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Springer' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Terrier' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Terrier' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Terrier' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Vizsla' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Vizsla' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Vizsla' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Weimaraner' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Weimaraner' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Weimaraner' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Whippet' /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:9:in `block in index'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Whippet' AND "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:10:in `block in index'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Whippet' AND "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:11:in `block in index'
+  Rendering layout layouts/application.html.erb
+  Rendering breeds/index.html.erb within layouts/application
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/index.html.erb:100
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/index.html.erb:104
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/index.html.erb:108
+  Rendered breeds/index.html.erb within layouts/application (Duration: 19.0ms | GC: 0.0ms)
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mCACHE Dog Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='index',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 30.0ms | GC: 0.0ms)
+Completed 200 OK in 2509ms (Views: 29.9ms | ActiveRecord: 39.4ms (136 queries, 2 cached) | GC: 0.6ms)
+
+
+Started GET "/breeds/Hound" for 127.0.0.1 at 2025-07-31 09:34:12 +0530
+Processing by BreedsController#show as HTML
+  Parameters: {"breed_name"=>"Hound"}
+  [1m[36mDog Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "dogs" WHERE "dogs"."breed" = 'Hound' LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:25:in `show'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:43:in `show'
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:44:in `show'
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/controllers/breeds_controller.rb:45:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering breeds/show.html.erb within layouts/application
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."breed" = 'Hound' ORDER BY "dogs"."name" ASC /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/show.html.erb:90
+  [1m[36mDog Load (1.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 1 ORDER BY "dogs"."name" ASC /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/show.html.erb:123
+  [1m[36mDog Load (0.4ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."breed" = 'Hound' AND "dogs"."available_for_adoption" = 0 ORDER BY "dogs"."name" ASC /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/breeds/show.html.erb:152
+  Rendered breeds/show.html.erb within layouts/application (Duration: 21.9ms | GC: 0.0ms)
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mDog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='show',application='DogAdoptionSystem',controller='breeds'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 39.7ms | GC: 0.0ms)
+Completed 200 OK in 1512ms (Views: 38.2ms | ActiveRecord: 3.6ms (10 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dogs/61" for 127.0.0.1 at 2025-07-31 09:34:19 +0530
+Processing by DogsController#show as HTML
+  Parameters: {"id"=>"61"}
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE "dogs"."id" = 61 LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:12:in `show'
+  [1m[36mAdoption Load (0.2ms)[0m  [1m[34mSELECT "adoptions".* FROM "adoptions" WHERE "adoptions"."dog_id" = 61 ORDER BY "adoptions"."id" ASC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/controllers/dogs_controller.rb:13:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering dogs/show.html.erb within layouts/application
+  [1m[36mDog Load (0.2ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE (id < 61) ORDER BY "dogs"."id" DESC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/show.html.erb:154
+  [1m[36mDog Load (0.3ms)[0m  [1m[34mSELECT "dogs".* FROM "dogs" WHERE (id > 61) ORDER BY "dogs"."id" ASC LIMIT 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/dogs/show.html.erb:155
+  Rendered dogs/show.html.erb within layouts/application (Duration: 9.1ms | GC: 0.0ms)
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 1 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:54
+  [1m[36mDog Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "dogs" WHERE "dogs"."available_for_adoption" = 0 /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:55
+  [1m[36mOwner Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "owners" /*action='show',application='DogAdoptionSystem',controller='dogs'*/[0m
+  ↳ app/views/layouts/application.html.erb:57
+  Rendered layout layouts/application.html.erb (Duration: 24.9ms | GC: 0.0ms)
+Completed 200 OK in 1481ms (Views: 24.4ms | ActiveRecord: 1.6ms (7 queries, 0 cached) | GC: 0.0ms)
+
+

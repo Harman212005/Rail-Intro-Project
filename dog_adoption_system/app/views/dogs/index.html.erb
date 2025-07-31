@@ -3,13 +3,65 @@
     <div class="col-12">
       <h1>All Dogs</h1>
       
+      <!-- Search Form with Breed Filter -->
+      <div class="row mb-4">
+        <div class="col-md-10 mx-auto">
+          <div class="card">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">🔍 Search and Filter Dogs</h5>
+            </div>
+            <div class="card-body">
+              <%= form_with url: dogs_path, method: :get, local: true do |form| %>
+                <div class="row g-2">
+                  <div class="col-md-3">
+                    <label for="breed_select" class="form-label">Filter by Breed:</label>
+                    <%= form.select :breed, 
+                        options_for_select([['All Breeds', '']] + @all_breeds.map { |breed| [breed, breed] }, params[:breed]),
+                        { }, 
+                        { class: "form-select", id: "breed_select" } %>
+                  </div>
+                  <div class="col-md-7">
+                    <label for="search_field" class="form-label">Search Dogs:</label>
+                    <%= form.text_field :search, 
+                        value: params[:search], 
+                        placeholder: "Search by name, breed, or description...", 
+                        class: "form-control",
+                        id: "search_field" %>
+                  </div>
+                  <div class="col-md-2">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-primary w-100 d-block" type="submit">
+                      🔍 Search
+                    </button>
+                  </div>
+                </div>
+              <% end %>
+              <% if @search_performed || @breed_filter.present? %>
+                <div class="mt-3 p-2 bg-info bg-opacity-10 rounded">
+                  <small class="text-muted">
+                    <% if @breed_filter.present? && @search_performed %>
+                      Showing <%= @total_count %> <%= @breed_filter.downcase %> result<%= 's' if @total_count != 1 %> for "<strong><%= @search_term %></strong>"
+                    <% elsif @breed_filter.present? %>
+                      Showing all <%= @total_count %> <strong><%= @breed_filter %></strong> dogs
+                    <% elsif @search_performed %>
+                      Showing <%= @total_count %> result<%= 's' if @total_count != 1 %> for "<strong><%= @search_term %></strong>"
+                    <% end %>
+                  </small>
+                  <%= link_to "✕ Clear all filters", dogs_path, class: "btn btn-sm btn-outline-secondary ms-2" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <!-- Summary Stats -->
       <div class="row mb-4">
         <div class="col-md-4">
           <div class="card bg-info text-white">
             <div class="card-body text-center">
               <h3><%= @total_count %></h3>
-              <p>Total Dogs</p>
+              <p><%= @search_performed ? "Found" : "Total" %> Dogs</p>
             </div>
           </div>
         </div>
