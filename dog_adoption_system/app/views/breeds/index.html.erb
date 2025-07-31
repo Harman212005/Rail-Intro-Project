@@ -4,7 +4,7 @@
       <h1>Browse Dogs by Breed</h1>
       <p class="lead">Explore our <%= @total_breeds %> different dog breeds and find your perfect companion.</p>
       
-      <!-- Navigation Breadcrumb -->
+
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <!-- Breed Categories Grid -->
+
   <div class="row">
     <% @breeds_data.each do |breed_data| %>
       <div class="col-lg-4 col-md-6 mb-4">
@@ -26,7 +26,7 @@
                   class: "text-decoration-none" %>
             </h5>
             
-            <!-- Breed Statistics -->
+
             <div class="row text-center mb-3">
               <div class="col-4">
                 <div class="stat-box bg-info text-white rounded p-2">
@@ -48,7 +48,7 @@
               </div>
             </div>
 
-            <!-- Quick Stats Bar -->
+
             <div class="mb-3">
               <% total = breed_data[:total_count].to_f %>
               <% available_percent = total > 0 ? (breed_data[:available_count] / total * 100).round : 0 %>
@@ -65,7 +65,6 @@
               </small>
             </div>
 
-            <!-- Action Buttons -->
             <div class="d-grid gap-2">
               <%= link_to "View #{breed_data[:breed]} Dogs", breed_path(breed_data[:breed]), 
                   class: "btn btn-primary" %>
@@ -85,7 +84,7 @@
     <% end %>
   </div>
 
-  <!-- Summary Statistics -->
+
   <div class="row mt-4">
     <div class="col-12">
       <div class="card bg-light">

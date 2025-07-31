@@ -13,9 +13,11 @@
         <img src="<%= @dog.image_url %>" class="card-img-top" alt="<%= @dog.name %>" style="height: 400px; object-fit: cover;">
         <div class="card-body text-center">
           <% if @dog.available_for_adoption? %>
-            <span class="badge bg-success fs-6 p-2">Available for Adoption</span>
+            <span class="badge bg-success fs-6 p-2"> Available for Adoption</span>
+            <p class="mt-2 text-success"><strong>This dog is ready for a loving home!</strong></p>
           <% else %>
-            <span class="badge bg-secondary fs-6 p-2">Already Adopted</span>
+            <span class="badge bg-secondary fs-6 p-2"> Happy in New Home</span>
+            <p class="mt-2 text-muted"><strong>This dog has been successfully adopted.</strong></p>
           <% end %>
         </div>
       </div>
@@ -95,7 +97,7 @@
     <div class="col-12">
       <div class="card border-info">
         <div class="card-header bg-info text-white">
-          <h3 class="mb-0">🏠 Adoption Information</h3>
+          <h3 class="mb-0"> Adoption Information</h3>
         </div>
         <div class="card-body">
           <div class="row">

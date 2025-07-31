@@ -3,12 +3,11 @@
     <div class="col-12">
       <h1>All Dogs</h1>
       
-      <!-- Search Form with Breed Filter -->
       <div class="row mb-4">
         <div class="col-md-10 mx-auto">
           <div class="card">
             <div class="card-header bg-light">
-              <h5 class="mb-0">🔍 Search and Filter Dogs</h5>
+              <h5 class="mb-0"> Search and Filter Dogs</h5>
             </div>
             <div class="card-body">
               <%= form_with url: dogs_path, method: :get, local: true do |form| %>
@@ -31,7 +30,7 @@
                   <div class="col-md-2">
                     <label class="form-label">&nbsp;</label>
                     <button class="btn btn-primary w-100 d-block" type="submit">
-                      🔍 Search
+                       Search
                     </button>
                   </div>
                 </div>
@@ -55,7 +54,7 @@
         </div>
       </div>
       
-      <!-- Summary Stats -->
+
       <div class="row mb-4">
         <div class="col-md-4">
           <div class="card bg-info text-white">
@@ -83,7 +82,7 @@
         </div>
       </div>
 
-      <!-- Filter Tabs -->
+
       <ul class="nav nav-tabs" id="dogTabs" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">
@@ -102,7 +101,7 @@
         </li>
       </ul>
 
-      <!-- Tab Content -->
+
       <div class="tab-content" id="dogTabContent">
         <!-- All Dogs Tab -->
         <div class="tab-pane fade show active" id="all" role="tabpanel">
@@ -134,7 +133,7 @@
           </div>
         </div>
 
-        <!-- Available Dogs Tab -->
+
         <div class="tab-pane fade" id="available" role="tabpanel">
           <div class="row mt-3">
             <% @available_dogs.each do |dog| %>
@@ -158,7 +157,7 @@
           </div>
         </div>
 
-        <!-- Adopted Dogs Tab -->
+
         <div class="tab-pane fade" id="adopted" role="tabpanel">
           <div class="row mt-3">
             <% @adopted_dogs.each do |dog| %>

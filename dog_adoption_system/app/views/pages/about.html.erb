@@ -9,42 +9,42 @@
           <p>This Ruby on Rails application manages a comprehensive dog adoption system using data from multiple reliable sources to provide accurate and up-to-date information about dogs available for adoption.</p>
 
           <h3>Data Sources</h3>
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <div class="card border-primary">
+          <div class="row g-3">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="card border-primary h-100">
                 <div class="card-header bg-primary text-white">
                   <h5 class="mb-0">1. Dog API</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                   <p><strong>Source:</strong> <a href="https://dog.ceo/dog-api/" target="_blank">dog.ceo/dog-api</a></p>
                   <p><strong>Data:</strong> Real dog breed information and authentic breed images</p>
-                  <p><strong>Usage:</strong> Populates our Dogs table with <%= Dog.count %> dogs from <%= Dog.distinct.count(:breed) %> different breeds</p>
+                  <p class="mt-auto"><strong>Usage:</strong> Populates our Dogs table with <%= Dog.count %> dogs from <%= Dog.distinct.count(:breed) %> different breeds</p>
                 </div>
               </div>
             </div>
 
-            <div class="col-md-4 mb-3">
-              <div class="card border-success">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="card border-success h-100">
                 <div class="card-header bg-success text-white">
                   <h5 class="mb-0">2. Faker Gem - Owners</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                   <p><strong>Source:</strong> Ruby Faker Gem</p>
                   <p><strong>Data:</strong> Realistic owner contact information</p>
-                  <p><strong>Usage:</strong> Generated <%= Owner.count %> potential adopters with names, emails, addresses, and phone numbers</p>
+                  <p class="mt-auto"><strong>Usage:</strong> Generated <%= Owner.count %> potential adopters with names, emails, addresses, and phone numbers</p>
                 </div>
               </div>
             </div>
 
-            <div class="col-md-4 mb-3">
-              <div class="card border-warning">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+              <div class="card border-warning h-100">
                 <div class="card-header bg-warning text-white">
                   <h5 class="mb-0">3. Faker Gem - Adoptions</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                   <p><strong>Source:</strong> Ruby Faker Gem</p>
                   <p><strong>Data:</strong> Adoption history and records</p>
-                  <p><strong>Usage:</strong> Created <%= Adoption.count %> adoption records with dates, fees, and notes</p>
+                  <p class="mt-auto"><strong>Usage:</strong> Created <%= Adoption.count %> adoption records with dates, fees, and notes</p>
                 </div>
               </div>
             </div>
@@ -92,36 +92,36 @@
           </ul>
 
           <h3>Current Statistics</h3>
-          <div class="row text-center">
-            <div class="col-md-3">
-              <div class="card bg-info text-white">
+          <div class="row g-2">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+              <div class="card bg-info text-white text-center">
                 <div class="card-body">
-                  <h4><%= Dog.available.count %></h4>
-                  <p>Available Dogs</p>
+                  <h4><%= Dog.where(available_for_adoption: true).count %></h4>
+                  <p class="mb-0">Available Dogs</p>
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="card bg-secondary text-white">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+              <div class="card bg-secondary text-white text-center">
                 <div class="card-body">
-                  <h4><%= Dog.adopted.count %></h4>
-                  <p>Adopted Dogs</p>
+                  <h4><%= Dog.where(available_for_adoption: false).count %></h4>
+                  <p class="mb-0">Adopted Dogs</p>
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="card bg-success text-white">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+              <div class="card bg-success text-white text-center">
                 <div class="card-body">
                   <h4><%= Owner.count %></h4>
-                  <p>Registered Owners</p>
+                  <p class="mb-0">Registered Owners</p>
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="card bg-warning text-white">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+              <div class="card bg-warning text-white text-center">
                 <div class="card-body">
                   <h4><%= Adoption.count %></h4>
-                  <p>Total Adoptions</p>
+                  <p class="mb-0">Total Adoptions</p>
                 </div>
               </div>
             </div>

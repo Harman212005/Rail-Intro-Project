@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="jumbotron bg-primary text-white text-center py-5 mb-4 rounded">
-    <h1 class="display-4">🐕 Dog Adoption System</h1>
+    <h1 class="display-4"> Dog Adoption System</h1>
     <p class="lead">Find your perfect furry companion and give a dog a loving home</p>
     <hr class="my-4">
     <p>We help connect dogs in need with loving families through our comprehensive adoption platform.</p>
@@ -44,10 +44,11 @@
   <% if @recent_adoptions.any? %>
   <div class="row">
     <div class="col-12">
-      <h3>Recent Adoptions</h3>
+      <h3> Recent Success Stories</h3>
+      <p class="text-muted">These wonderful dogs have recently found their forever homes!</p>
       <div class="table-responsive">
         <table class="table table-striped">
-          <thead>
+          <thead class="table-primary">
             <tr>
               <th>Dog</th>
               <th>Breed</th>
@@ -68,6 +69,15 @@
             <% end %>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+  <% else %>
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="alert alert-info">
+        <h4>🐕 No Recent Adoptions</h4>
+        <p>We're working hard to find loving homes for all our dogs. Check back soon for adoption success stories!</p>
       </div>
     </div>
   </div>
